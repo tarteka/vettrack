@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% if status == 'Confirmed' %}
+            Cita confirmada
+        {% elseif status == 'Cancelled' %}
+            Cita cancelada
+        {% elseif status == 'Requested' %}
+            Cita solicitada
+        {% endif %}
+    </title>
+</head>
+
+<body style="
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    font-size: 16px;
+">
+<div style="max-width: 600px; margin: 0 auto;">
+
+    {# Título dinámico según el estado de la cita #}
+    <h2 style="
+            color:
+    {% if status == 'Confirmed' %}
+            #16a34a
+        {% elseif status == 'Requested' %}
+            #ca8a04
+    {% else %}
+            #dc2626
+    {% endif %}
+            ">
+        {% if status == 'Confirmed' %}
+            Cita confirmada
+        {% elseif status == 'Cancelled' %}
+            Cita cancelada
+        {% elseif status == 'Requested' %}
+            Cita solicitada
+        {% endif %}
+    </h2>
+
+    <p>
+        Hola <strong>{{ user.getFullName() }}</strong>,
+    </p>
+
+    <p>
+        {% if status == 'Confirmed' %}
+            Tu solicitud de cita ha sido <strong>confirmada</strong>. A continuación, te detallamos la información:
+        {% elseif status == 'Cancelled' %}
+            Lamentamos informarte de que tu solicitud de cita ha sido <strong>cancelada</strong>.
+        {% elseif status == 'Requested' %}
+            Hemos recibido tu <strong>solicitud</strong> de cita. A continuación, te detallamos la información:
+        {% endif %}
+    </p>
+
+    <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <strong>Mascota:</strong> {{ petName }}<br>
+        <strong>Tipo de consulta:</strong> {{ tipoConsulta }}<br>
+        <strong>Fecha:</strong> {{ dia|date('d/m/Y') }}<br>
+        <strong>Hora:</strong> {{ hora|date('H:i') }}
+    </div>
+
+    {% if status == 'Confirmed' %}
+        <p style="color: #15803d;">
+            Por favor, acude con unos minutos de antelación a la hora programada.
+            No olvides llevar toda la documentación necesaria relacionada con tu mascota.
+        </p>
+    {% elseif status == 'Cancelled' %}
+        <p style="color: #991b1b;">
+            Si deseas volver a solicitar una cita, puedes hacerlo a través de nuestra plataforma o contactarnos directamente.
+        </p>
+    {% elseif status == 'Requested' %}
+        <p style="color: #854d0e;">
+            Recibirás una confirmación por correo electrónico una vez que tu cita haya sido revisada por nuestro equipo.
+        </p>
+    {% endif %}
+
+    <hr style="margin: 40px 0;">
+
+    <p>
+        Si tienes cualquier duda, puedes contactarnos:<br>
+        📧 <a href="mailto:{{ supportEmail }}">{{ supportEmail }}</a><br>
+        📞 {{ supportPhone }}
+    </p>
+
+</div>
+</body>
+</html>

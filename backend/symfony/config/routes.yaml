@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+api_auth:
+  path: /api/auth/login
+
+api_auth_refresh:
+    path: /api/auth/refresh
+
+api_auth_invalidate:
+    path: /api/auth/invalidate

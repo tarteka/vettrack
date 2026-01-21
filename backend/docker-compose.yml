@@ -1,0 +1,66 @@
+services:
+  mysql:
+    hostname: ${NAME}-mysql
+    container_name: ${NAME}-mysql
+    image: mysql:${MYSQL_VERSION}
+    environment:
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./docker/mysql/utf8.cnf:/etc/mysql/conf.d/utf8.cnf:ro
+      - ./docker/mysql/storage:/var/lib/mysql/:rw
+      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d/:ro
+    expose:
+      - "3306"
+    networks:
+      - guno-back-network
+
+  symfony:
+    hostname: ${NAME}-symfony
+    container_name: ${NAME}-symfony
+    user: "${UID}:${GID}"
+    build:
+      context: ./
+      dockerfile: ./docker/php-apache/Dockerfile
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    environment:
+        COMPOSER_HOME: /tmp/composer
+        COMPOSER_CACHE_DIR: /tmp/composer/cache
+        COMPOSER_ALLOW_SUPERUSER: 1
+    env_file:
+      - .env
+    volumes:
+      - ./symfony/:/var/www/symfony/:rw
+      - ./docker/php-apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - guno-network
+      - guno-back-network
+
+  cron:
+    hostname: ${NAME}-cron
+    container_name: ${NAME}-cron
+    build:
+      context: ./
+      dockerfile: ./docker/cron/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./symfony/:/var/www/symfony/:rw
+    depends_on:
+      - mysql
+      - symfony
+    networks:
+      - guno-back-network
+
+networks:
+  guno-network:
+    name: guno-network
+  guno-back-network:
+    name: guno-back-network

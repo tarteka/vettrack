@@ -1,0 +1,77 @@
+###> IDEs y Editores ###
+# PhpStorm / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+###< IDEs y Editores ###
+
+###> Sistema Operativo ###
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+###< Sistema Operativo ###
+
+###> Docker ###
+/.env
+docker/mysql/storage
+docker/mysql/tmp
+docker-compose.override.yml
+###< Docker ###
+
+###> Logs ###
+*.log
+/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+###< Logs ###
+
+###> Backup y temporales ###
+*.bak
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+###< Backup y temporales ###
+
+###> Composer ###
+/composer.phar
+###< Composer ###
+
+###> Symfony ###
+symfony/.bash_history
+###< Symfony ###

@@ -1,0 +1,193 @@
+﻿<div class="min-h-screen bg-gradient-to-br from-teal-600 to-teal-900 flex items-center justify-center p-4 font-sans">
+
+  <!-- Card -->
+  <div class="w-full max-w-[420px] overflow-hidden rounded-xl bg-white shadow-lg">
+    <!-- Header -->
+    <div class="text-center px-4 pt-8 pb-4">
+      <div class="mx-auto h-20 w-20 rounded-full bg-teal-600 flex items-center justify-center">
+        <img src="assets/icon.svg" alt="VetTrack Logo" class="h-20 w-20" />
+      </div>
+
+      <h2 class="mt-4 text-3xl font-semibold text-teal-900">VetTrack</h2>
+      <p class="mt-1 text-sm text-gray-600">Plataforma de gestión de clínica veterinaria</p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+      <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+        <!-- Email -->
+        <div class="mb-4 flex flex-col gap-1">
+          <label for="email" class="text-sm font-medium text-gray-900">Email</label>
+
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              formControlName="username"
+              placeholder="tu@email.com"
+              required
+              class="w-full rounded-lg border border-gray-300 py-2.5 pl-3 pr-3 text-sm outline-none
+                     focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"
+              [class.border-red-300]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+            />
+
+
+          </div>
+
+          <div class="text-xs text-red-600"
+               *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+            Email inválido
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4 flex flex-col gap-1">
+          <label for="password" class="text-sm font-medium text-gray-900">Contraseña</label>
+
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="********"
+              required
+              class="w-full rounded-lg border border-gray-300 py-2.5 pl-3 pr-10 text-sm outline-none
+                     focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            >
+              <lucide-icon
+                [name]="showPassword ? 'EyeOff' : 'eye'"
+                class="h-4 w-4"
+              ></lucide-icon>
+            </button>
+            </div>
+        </div>
+
+        <!-- Forgot -->
+        <div class="mb-4 flex justify-end">
+          <button
+            type="button"
+            class="text-sm text-teal-700 underline hover:text-teal-600"
+            (click)="toggleRecoveryModal()"
+          >
+            ¿Has olvidado tu contraseña?
+          </button>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-teal-600 py-3 text-sm font-semibold text-white
+                 hover:bg-teal-500 disabled:cursor-not-allowed disabled:bg-teal-200"
+          [disabled]="loginForm.invalid"
+        >
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL RECOVERY -->
+  <div
+    *ngIf="showRecoveryModal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6 backdrop-blur-sm"
+    (click)="toggleRecoveryModal()"
+  >
+    <div
+      class="w-full max-w-md rounded-3xl border bg-white p-8 shadow-2xl animate-in fade-in zoom-in duration-300"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- FORMULARIO RECOVERY -->
+      <div *ngIf="!recoverySent">
+        <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg">
+          <lucide-icon name="mail" class="h-11 w-11 text-white"></lucide-icon>
+        </div>
+
+        <h2 class="mb-3 text-center text-2xl font-bold text-gray-900">¿Olvidaste tu contraseña?</h2>
+        <p class="mb-10 text-center text-lg leading-relaxed text-gray-600">
+          Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+        </p>
+
+        <form [formGroup]="recoveryForm" (ngSubmit)="sendRecoveryEmail()" class="space-y-5">
+          <div>
+            <input
+              formControlName="email"
+              type="email"
+              placeholder="tu@email.com"
+              class="w-full rounded-2xl border border-gray-200 px-5 py-4 text-lg shadow-sm outline-none
+                     focus:border-teal-500 focus:ring-4 focus:ring-teal-500/30"
+              [class.border-red-300]="recoveryForm.get('email')?.invalid && recoveryForm.get('email')?.touched"
+            />
+
+            <div
+              *ngIf="recoveryForm.get('email')?.invalid && recoveryForm.get('email')?.touched"
+              class="mt-2 text-left text-sm font-medium text-red-600"
+            >
+              <span class="inline-flex items-center gap-1">
+                <lucide-icon name="alert-triangle" class="h-4 w-4"></lucide-icon>
+                Por favor ingresa un correo electrónico válido
+              </span>
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-2">
+            <button
+              type="button"
+              class="h-14 flex-1 rounded-2xl border-2 border-gray-200 px-8 py-4 text-base font-semibold text-gray-700 shadow-sm
+                     hover:border-gray-300 hover:bg-gray-50"
+              (click)="toggleRecoveryModal()"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              class="h-14 flex-1 rounded-2xl bg-gradient-to-r from-teal-500 to-teal-600 px-8 py-4 text-base font-semibold text-white shadow-xl
+                     hover:from-teal-600 hover:to-teal-700 hover:shadow-2xl
+                     disabled:cursor-not-allowed disabled:opacity-50"
+              [disabled]="recoveryForm.invalid"
+            >
+              Enviar enlace
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ÉXITO -->
+      <div *ngIf="recoverySent">
+        <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg">
+          <lucide-icon name="check" class="h-11 w-11 text-white"></lucide-icon>
+        </div>
+
+        <h2 class="mb-3 text-center text-2xl font-bold text-gray-900">¡Correo enviado!</h2>
+
+        <p class="mb-10 text-center text-lg leading-relaxed text-gray-600">
+          Te enviamos un enlace de recuperación a:<br>
+          <strong class="mt-1 block text-lg font-semibold text-gray-900">
+            {{ recoveryForm.get('email')?.value }}
+          </strong>
+          <span class="mt-1 block text-sm text-gray-500">Revisa bandeja de entrada y spam</span>
+        </p>
+
+        <button
+          class="h-14 w-full rounded-2xl bg-gradient-to-r from-teal-500 to-teal-600 px-8 py-4 text-base font-semibold text-white shadow-xl
+                 hover:from-teal-600 hover:to-teal-700 hover:shadow-2xl"
+          (click)="toggleRecoveryModal()"
+        >
+          Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+

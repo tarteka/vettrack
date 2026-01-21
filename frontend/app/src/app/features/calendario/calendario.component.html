@@ -1,0 +1,272 @@
+<div class="space-y-4 md:space-y-6">
+  <!-- Back -->
+  @if (showBackButton) {
+    <button
+      type="button"
+      (click)="onBack()"
+      class="mb-2 -ml-2 inline-flex items-center rounded-md px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+    >
+      <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4"></lucide-icon>
+      <span class="hidden sm:inline">Volver al dashboard</span>
+      <span class="sm:hidden">Volver</span>
+    </button>
+  }
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-[#004D40] text-xl md:text-2xl font-semibold">Calendario de Citas</h2>
+      <p class="text-gray-600 text-sm md:text-base">Gestiona y programa citas fácilmente</p>
+    </div>
+
+    <button
+      type="button"
+      (click)="openNewDialog()"
+      class="w-full sm:w-auto inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-white hover:bg-[#26A69A]"
+    >
+      <lucide-icon [img]="Plus" class="mr-2 h-4 w-4"></lucide-icon>
+      Nueva cita
+    </button>
+  </div>
+
+  <!-- Calendar Card -->
+  <div class="rounded-xl border bg-white shadow-sm">
+    <div class="border-b px-4 py-3">
+      <p class="text-[#004D40] font-medium">Agenda</p>
+      <p class="text-xs text-gray-500">Tip: haz click en una franja horaria para crear una cita</p>
+    </div>
+
+    <div class="p-4">
+      <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+      <!-- Leyenda -->
+      <div class="mt-6 pt-4 border-t">
+        <p class="text-sm text-gray-600 mb-2">Leyenda:</p>
+        <div class="flex flex-wrap gap-3 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded border" style="background:#DBEAFE;border-color:#93C5FD"></span>
+            Revisión
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded border" style="background:#DCFCE7;border-color:#86EFAC"></span>
+            Vacuna
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded border" style="background:#EDE9FE;border-color:#C4B5FD"></span>
+            Consulta
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded border" style="background:#FEE2E2;border-color:#FCA5A5"></span>
+            Cirugía
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded border" style="background:#FEF9C3;border-color:#FDE68A"></span>
+            Desparasitación
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    *ngIf="dialogOpen"
+    class="fixed inset-0 z-[60] flex items-center justify-center"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/40" (click)="closeDialog()"></div>
+
+    <!-- Dialog -->
+    <div class="relative z-10 w-[90vw] max-w-md max-h-[90vh] overflow-y-auto rounded-xl bg-white shadow-xl">
+      <div class="border-b px-5 py-4">
+        <h3 class="text-[#004D40] font-semibold">
+          {{ isEditing ? 'Editar cita' : 'Agendar nueva cita' }}
+        </h3>
+        <p class="text-sm text-gray-600">
+          {{ isEditing ? 'Modifica los datos de la cita.' : 'Registra una nueva cita para un paciente.' }}
+        </p>
+      </div>
+
+      <form #f="ngForm" (ngSubmit)="saveCita(f)" class="px-5 py-4 space-y-4">
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Propietario *</label>
+
+
+          <!-- Selector de Propietario -->
+            <input
+              type="text"
+              name="propietarioSearch"
+              placeholder="Escribe para buscar..."
+              [(ngModel)]="searchTermPropietario"
+              (input)="onSearchInput()"
+              (focus)="showDropdown = true"
+              autocomplete="off"
+              class="w-full rounded-md border px-3 py-2 text-sm
+                    outline-none focus:ring-2 focus:ring-[#009688]/30"
+              required
+            />
+
+            <!-- Dropdown -->
+            <div
+              *ngIf="showDropdown && propietarios().length"
+              class="absolute z-20 mt-1 w-full rounded-md border bg-white shadow-lg max-h-48 overflow-auto"
+            >
+            <ul>
+              @for (p of propietariosFiltrados(); track p.id) {
+                <li
+                  (click)="selectPropietario(p)"
+                  class="cursor-pointer px-3 py-2 text-sm hover:bg-[#009688]/10"
+                >
+                  {{ p.firstName }} {{ p.lastName }}
+                </li>
+              }
+            </ul>
+          </div>
+          <!-- Input oculto para que el formulario siga enviando el ID -->
+          <input type="hidden" name="propietarioId" [(ngModel)]="form.propietarioId" required>
+        </div>
+
+
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Mascota *</label>
+          <!-- Selector de Mascota -->
+          <select
+            name="mascotaId"
+            [(ngModel)]="form.mascotaId"
+            required
+            class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30 bg-white"
+            >
+            <option [ngValue]="null">Selecciona mascota</option>
+            @for (m of mascotasDelPropietario(); track m.id) {
+              <option [value]="m.id">{{ m.name }} ({{ m.petType.name }})</option>
+            }
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Veterinario *</label>
+          <!-- Selector de Veterinario -->
+          <select
+            name="vetId"
+            [(ngModel)]="form.vetId"
+            required
+            class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30 bg-white"
+          >
+            <option [ngValue]="null">Selecciona veterinario</option>
+            @for (v of veterinarios(); track v.id) {
+              <option [value]="v.id">{{ v.firstName }} {{ v.lastName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Tipo *</label>
+
+          <select
+            name="tipo"
+            [(ngModel)]="form.appointmentTypeId"
+            required
+            class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30 bg-white"
+          >
+            <option value="" disabled>Seleccionar tipo</option>
+            @for (t of tiposDeCita(); track t.id) {
+              <option [value]="t.id">{{ t.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Selector de Fecha -->
+          <div class="space-y-1">
+            <label class="text-sm text-gray-700">Fecha *</label>
+            <select
+              name="fecha"
+              [(ngModel)]="form.fecha"
+              (change)="onFechaChange()"
+              required
+              class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30"
+            >
+              <option value="" disabled selected>Selecciona fecha</option>
+              <option *ngFor="let fecha of availableDates" [value]="fecha">
+                {{ fecha | date:'dd/MM/yyyy' }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Selector de Hora -->
+          <div class="space-y-1">
+            <label class="text-sm text-gray-700">Hora *</label>
+            <select
+              name="appointmentSlotId"
+              [(ngModel)]="form.appointmentSlotId"
+              (change)="onHoraChange()"
+              [disabled]="!form.fecha || availableSlots.length === 0"
+              required
+              class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30 disabled:bg-gray-100"
+            >
+              <option value="null" disabled selected>
+                {{ !form.fecha ? 'Elige fecha primero' : 'Selecciona hora' }}
+              </option>
+              <option *ngFor="let slot of availableSlots" [value]="slot.id">
+                {{ slot.startTime.substring(0,5) }} - {{ slot.endTime.substring(0,5) }}
+              </option>
+            </select>
+          </div>
+        </div>
+      <!--
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Duración (min) *</label>
+          <input
+            name="duracionMin"
+            type="number"
+            min="15"
+            step="15"
+            [(ngModel)]="form.duracionMin"
+            required
+            class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30"
+          />
+        </div>
+      -->
+
+        <div class="space-y-1">
+          <label class="text-sm text-gray-700">Notas</label>
+          <textarea
+            name="notas"
+            [(ngModel)]="form.notas"
+            rows="3"
+            placeholder="Motivo / observaciones..."
+            class="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30"
+          ></textarea>
+        </div>
+
+        <div class="flex gap-3 pt-4 border-t">
+          <button
+            type="button"
+            (click)="closeDialog()"
+            class="flex-1 rounded-md border px-4 py-2 text-sm hover:bg-gray-50"
+          >
+            Cancelar
+          </button>
+
+          <button
+            *ngIf="isEditing"
+            type="button"
+            (click)="deleteCita()"
+            class="rounded-md border border-red-300 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+          >
+            Eliminar
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="f.invalid"
+            class="flex-1 rounded-md bg-[#009688] px-4 py-2 text-sm text-white hover:bg-[#26A69A] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ isEditing ? 'Guardar cambios' : 'Agendar cita' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

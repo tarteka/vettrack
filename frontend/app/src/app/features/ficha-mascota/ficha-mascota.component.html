@@ -1,0 +1,209 @@
+<div class="space-y-6">
+  <!-- Botón Volver -->
+  <button
+    type="button"
+    (click)="onNavigateBack()"
+    class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+  >
+    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    Volver a mascotas
+  </button>
+
+  @if (mascota(); as m) {
+    <!-- Header Card -->
+    <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div class="p-6">
+        <div class="flex flex-col gap-6 lg:flex-row">
+          <!-- Avatar dinámico -->
+          <div class="hidden sm:flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[#009688]/10">
+            @if (isDog()) {
+              <lucide-icon [img]="Dog" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+            } @else {
+              <lucide-icon [img]="Cat" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+            }
+          </div>
+
+          <!-- Información Principal -->
+          <div class="flex-1">
+            <div class="mb-4 flex items-start justify-between">
+              <div>
+                <h2 class="mb-2 text-2xl font-semibold text-[#004D40]">{{ m.name }}</h2>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex items-center rounded-full bg-[#009688] px-2.5 py-1 text-xs font-medium text-white">
+                    {{ m.petType.name }}
+                  </span>
+                  <span class="inline-flex items-center rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700">
+                    {{ m.breed }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div>
+                <p class="mb-1 text-sm text-slate-500">Edad</p>
+                <p class="text-[#212121]">{{ m.age }} años</p>
+              </div>
+              <div>
+                <p class="mb-1 text-sm text-slate-500">Peso</p>
+                <p class="text-[#212121]">{{ m.weight | number:'1.2-2'}} kg</p>
+              </div>
+              <div>
+                <p class="mb-1 text-sm text-slate-500">Sexo</p>
+                <p class="text-[#212121] capitalize">{{ m.gender }}</p>
+              </div>
+              <div>
+                <p class="mb-1 text-sm text-slate-500">Microchip</p>
+                <p class="text-[#212121]">{{ m.microchip }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Propietario -->
+          <div class="hidden md:block border-l border-slate-200 pl-6">
+            <h3 class="mb-3 text-base font-semibold text-[#004D40]">Propietario</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-2 text-[#212121]">
+                <lucide-icon [img]="User" class="h-4 w-4 text-slate-400"></lucide-icon>
+                {{ m.client.fullName }}
+              </div>
+              <div class="flex items-center gap-2 text-[#212121]">
+                <lucide-icon [img]="Phone" class="h-4 w-4 text-slate-400"></lucide-icon>
+                {{ m.client.phone }}
+              </div>
+              <div class="flex items-center gap-2 text-[#212121]">
+                <lucide-icon [img]="Mail" class="h-4 w-4 text-slate-400"></lucide-icon>
+                {{ m.client.email }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sistema de Pestañas -->
+    <div class="w-full">
+      <div class="grid w-full grid-cols-3 rounded-lg border border-slate-200 bg-white p-1">
+        <button type="button" (click)="setTab('historial')"
+          class="rounded-md px-3 py-2 text-sm font-medium transition"
+          [class.bg-slate-900]="activeTab() === 'historial'" [class.text-white]="activeTab() === 'historial'"
+          [class.text-slate-700]="activeTab() !== 'historial'">
+          Historial Clínico
+        </button>
+        <button type="button" (click)="setTab('tratamientos')"
+          class="rounded-md px-3 py-2 text-sm font-medium transition"
+          [class.bg-slate-900]="activeTab() === 'tratamientos'" [class.text-white]="activeTab() === 'tratamientos'"
+          [class.text-slate-700]="activeTab() !== 'tratamientos'">
+          Tratamientos
+        </button>
+        <button type="button" (click)="setTab('citas')"
+          class="rounded-md px-3 py-2 text-sm font-medium transition"
+          [class.bg-slate-900]="activeTab() === 'citas'" [class.text-white]="activeTab() === 'citas'"
+          [class.text-slate-700]="activeTab() !== 'citas'">
+          Próximas Citas
+        </button>
+      </div>
+
+      <!-- Contenido de Pestañas -->
+      <div class="mt-4">
+        @switch (activeTab()) {
+          @case ('historial') {
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-[#004D40]">Historial Clínico</h3>
+              @for (entrada of historialClinico(); track entrada.id) {
+                <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
+                      <lucide-icon [img]="FileText" class="h-6 w-6 text-[#009688]"></lucide-icon>
+                    </div>
+                    <div>
+                      <p class="font-medium">{{ entrada.type }}</p>
+                      <p class="text-sm text-slate-500">{{ entrada.date | date:'dd MMM yyyy' }} · {{ entrada.veterinarian }}</p>
+                    </div>
+                  </div>
+                  <div class="space-y-2 border-t border-slate-100 pt-3">
+                    <div>
+                      <p class="text-xs text-slate-500 uppercase font-bold">Descripción:</p>
+                      <p class="text-sm text-[#212121]">{{ entrada.description }}</p>
+                    </div>
+                    @if (entrada.diagnosis) {
+                      <div>
+                        <p class="text-xs text-slate-500 uppercase font-bold">Diagnóstico:</p>
+                        <p class="text-sm text-[#212121]">{{ entrada.diagnosis }}</p>
+                      </div>
+                    }
+                    @if (entrada.procedures) {
+                      <div>
+                        <p class="text-xs text-slate-500 uppercase font-bold">Procedimientos:</p>
+                        <p class="text-sm text-[#212121]">{{ entrada.procedures }}</p>
+                      </div>
+                    }
+                    @if (entrada.notes) {
+                      <div>
+                        <p class="text-xs text-slate-500 uppercase font-bold">Notas:</p>
+                        <p class="text-sm text-[#212121] italic text-slate-600">"{{ entrada.notes }}"</p>
+                      </div>
+                    }
+                  </div>
+                </div>
+              } @empty {
+                <!-- 6. Mensaje por si no hay registros -->
+                <div class="text-center py-10 border-2 border-dashed border-slate-200 rounded-xl">
+                  <p class="text-slate-500">No hay registros médicos para esta mascota.</p>
+                </div>
+              }
+            </div>
+          }
+
+          @case ('tratamientos') {
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-[#004D40]">Tratamientos Activos</h3>
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              @for (t of tratamientosActivos(); track t.id) {
+                <div class="rounded-xl border border-slate-200 bg-white p-6">
+                  <div class="flex items-start gap-3 mb-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                      <lucide-icon [img]="Pill" class="h-5 w-5 text-blue-600"></lucide-icon>
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-medium">{{ t.medicamento }}</p>
+                      <p class="text-sm text-slate-500">{{ t.dosis }} · {{ t.frecuencia }}</p>
+                      <p class="text-xs text-slate-500">{{ t.fechaInicio }} - {{ t.fechaFin || 'Pendiente' }}</p>
+                      <p class="text-xs text-slate-500" *ngIf="t.indicaciones">{{ t.indicaciones }}</p>
+                    </div>
+                  </div>
+                </div>
+              }
+              </div>
+            </div>
+          }
+
+          @case ('citas') {
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-[#004D40]">Próximas Citas</h3>
+              @for (cita of proximasCitas; track cita.id) {
+                <div class="rounded-xl border border-slate-200 bg-white p-6 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
+                      <lucide-icon [img]="Calendar" class="h-6 w-6 text-[#009688]"></lucide-icon>
+                    </div>
+                    <div>
+                      <p class="font-medium">{{ cita.tipo }}</p>
+                      <p class="text-sm text-slate-500">{{ cita.fecha }} · {{ cita.hora }}</p>
+                    </div>
+                  </div>
+                  <span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700">Programada</span>
+                </div>
+              }
+            </div>
+          }
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Estado de carga -->
+    <div class="flex h-64 items-center justify-center">
+      <p class="text-slate-500 animate-pulse">Cargando información de la mascota...</p>
+    </div>
+  }
+</div>

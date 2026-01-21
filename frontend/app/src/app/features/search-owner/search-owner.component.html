@@ -1,0 +1,47 @@
+<div class="relative">
+  <div class="relative">
+    <lucide-icon
+      [img]="icons.Search"
+      class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
+      [strokeWidth]="1.5"
+    ></lucide-icon>
+
+    <input
+      class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 pl-10 text-sm outline-none focus:ring-2 focus:ring-[#009688]/30 disabled:bg-slate-50 disabled:text-slate-500"
+      [placeholder]="placeholder"
+      [ngModel]="searchTerm"
+      (ngModelChange)="onInputChange($event)"
+      (focus)="onFocus()"
+      autocomplete="off"
+      [disabled]="disabled"
+    />
+  </div>
+
+  <!-- Resultados -->
+  <div
+    *ngIf="showResults && filteredOwners.length > 0"
+    class="absolute z-50 w-full mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg"
+  >
+    <div class="p-2">
+      <button
+        *ngFor="let owner of filteredOwners"
+        type="button"
+        (click)="handleSelect(owner)"
+        class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+      >
+        <p class="text-[#212121] font-medium">{{ owner.nombre }}</p>
+        <p class="text-sm text-gray-600">{{ owner.dni }}</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- Sin resultados -->
+  <div
+    *ngIf="showResults && searchTerm.length > 0 && filteredOwners.length === 0"
+    class="absolute z-50 w-full mt-1 rounded-lg border border-gray-200 bg-white shadow-lg"
+  >
+    <div class="p-4 text-center text-gray-500 text-sm">
+      No se encontraron propietarios
+    </div>
+  </div>
+</div>

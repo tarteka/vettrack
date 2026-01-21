@@ -1,0 +1,110 @@
+<div class="min-h-screen bg-[#F7F9FA]">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+      <div class="flex items-center gap-2 md:gap-4">
+        <!-- Hamburguesa (móvil + tablet) -->
+        <button
+          type="button"
+          class="rounded p-2 hover:bg-gray-100 xl:hidden"
+          (click)="sidebarOverlay = !sidebarOverlay"
+        >
+          <lucide-icon
+            [name]="sidebarOverlay ? 'x' : 'menu'"
+            class="h-5 w-5"
+          ></lucide-icon>
+        </button>
+
+        <!-- Brand -->
+        <div class="flex items-center gap-2">
+          <div
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-[#009688] md:h-10 md:w-10"
+          >
+            <img src="assets/icon.svg" alt="VetTrack Logo" class="h-8 w-8" />
+
+          </div>
+          <h1 class="text-lg font-semibold text-[#004D40] md:text-xl">
+            VetTrack
+          </h1>
+        </div>
+      </div>
+
+      <!-- User -->
+      <div class="hidden sm:flex items-center gap-3 md:gap-4">
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-full bg-[#009688] text-sm font-medium text-white md:h-10 md:w-10 md:text-base"
+        >
+          {{ userInitial }}
+        </div>
+
+        <div>
+          <p class="text-sm text-[#212121]">{{ userName }}</p>
+          <p class="text-xs capitalize text-gray-500">
+            {{ userRole === 'veterinario-admin' ? 'Admin' : userRole }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div class="flex">
+    <!-- SIDEBAR -->
+    <aside
+      class="border-r border-gray-200 bg-white transition-all duration-300
+             md:sticky md:top-[73px] md:h-[calc(100vh-73px)]
+             top-[57px] h-[calc(100vh-57px)] z-40"
+      [ngClass]="{
+        'fixed left-0 w-64 translate-x-0': sidebarOverlay,
+        '-translate-x-full fixed left-0 w-64 md:translate-x-0': !sidebarOverlay,
+
+        'lg:w-64': sidebarExpanded && !sidebarOverlay,
+        'md:w-20': !sidebarExpanded && !sidebarOverlay,
+        'xl:w-64': true
+      }"
+    >
+      <nav class="space-y-2 p-3 md:p-4">
+        <button
+          *ngFor="let item of menu"
+          type="button"
+          (click)="navigate(item); sidebarOverlay = false"
+          class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors md:px-4 md:py-3 md:text-base"
+          [ngClass]="{
+            'bg-[#009688] text-white': currentPage === item.id,
+            'text-[#212121] hover:bg-gray-100': currentPage !== item.id
+          }"
+        >
+          <lucide-icon [name]="item.icon" class="h-5 w-5"></lucide-icon>
+
+          <span *ngIf="sidebarOverlay || sidebarExpanded || isDesktop" class="truncate">
+            {{ item.label }}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          (click)="logout()"
+          class="mt-8 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition-colors hover:bg-red-50 md:px-4 md:py-3 md:text-base"
+        >
+          <lucide-icon name="log-out" class="h-5 w-5"></lucide-icon>
+
+          <span *ngIf="sidebarOverlay || sidebarExpanded || isDesktop" class="truncate">
+            Cerrar sesión
+          </span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- OVERLAY OSCURO -->
+    <div
+      *ngIf="sidebarOverlay"
+      class="fixed inset-0 z-30 bg-black/20 xl:hidden"
+      (click)="sidebarOverlay = false"
+    ></div>
+
+    <!-- MAIN -->
+    <main class="flex-1 min-w-0 p-4 md:p-6 lg:p-8">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

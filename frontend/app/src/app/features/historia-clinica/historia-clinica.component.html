@@ -1,0 +1,322 @@
+<div class="space-y-6">
+  <!-- Volver -->
+  <button
+    type="button"
+    (click)="goBack()"
+    class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+  >
+    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    Volver a ficha de mascota
+  </button>
+
+  <!-- Card Form -->
+  <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div class="border-b border-slate-200 p-6">
+      <h3 class="text-base font-semibold text-[#004D40]">Nueva Entrada de Historia Clínica</h3>
+      <p class="mt-1 text-sm text-slate-600">Registra la información de la consulta veterinaria</p>
+    </div>
+
+    <div class="p-6">
+      <form (ngSubmit)="handleSubmit()" class="space-y-6">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- Fecha -->
+          <div class="space-y-2">
+            <label for="fecha" class="text-sm font-medium text-slate-700">Fecha de consulta</label>
+            <input
+              id="fecha"
+              type="date"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              [(ngModel)]="formData.fecha"
+              name="fecha"
+              required
+            />
+          </div>
+
+          <!-- Mascota -->
+          <div class="space-y-2">
+            <label for="mascota" class="text-sm font-medium text-slate-700">Mascota / Paciente</label>
+            <select
+              id="mascota"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30 disabled:bg-slate-50"
+              [(ngModel)]="formData.mascota"
+              name="mascota"
+              [disabled]="selectedPetId !== null"
+              required
+            >
+              <option value="" disabled>
+                {{ petsLoading ? 'Cargando mascotas...' : 'Seleccionar mascota' }}
+              </option>
+              <option *ngFor="let m of mascotas" [value]="m.id">
+                {{ m.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tipo de consulta -->
+        <div class="space-y-2">
+          <label for="tipo" class="text-sm font-medium text-slate-700">Tipo de consulta</label>
+          <select
+            id="tipo"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            [(ngModel)]="formData.tipo"
+            name="tipo"
+            required
+          >
+            <option *ngFor="let tipo of tiposConsulta" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Diagnóstico -->
+        <div class="space-y-2">
+          <label for="diagnostico" class="text-sm font-medium text-slate-700">Diagnóstico</label>
+          <input
+            id="diagnostico"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Ej: Otitis externa aguda"
+            [(ngModel)]="formData.diagnostico"
+            name="diagnostico"
+            required
+          />
+        </div>
+
+        <!-- Síntomas -->
+        <div class="space-y-2">
+          <label for="sintomas" class="text-sm font-medium text-slate-700">Síntomas</label>
+          <textarea
+            id="sintomas"
+            rows="3"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Describe los síntomas observados..."
+            [(ngModel)]="formData.sintomas"
+            name="sintomas"
+          ></textarea>
+        </div>
+
+        <!-- Procedimientos -->
+        <div class="space-y-2">
+          <label for="procedimientos" class="text-sm font-medium text-slate-700">Procedimientos</label>
+          <textarea
+            id="procedimientos"
+            rows="4"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Procedimientos realizados..."
+            [(ngModel)]="formData.procedimientos"
+            name="procedimientos"
+          ></textarea>
+        </div>
+
+        <!-- Tratamiento -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between gap-3">
+            <label for="tratamiento" class="text-sm font-medium text-slate-700">
+              Tratamiento recetado
+              <span class="font-normal text-slate-500">(opcional)</span>
+            </label>
+
+            <button
+              type="button"
+              (click)="openTratamientoDialog()"
+              class="inline-flex items-center rounded-md border border-[#009688] px-3 py-1.5 text-sm font-medium text-[#009688] hover:bg-[#009688]/10"
+            >
+              <lucide-icon [img]="Plus" class="mr-1 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+              Añadir tratamiento
+            </button>
+          </div>
+
+          <textarea
+            id="tratamiento"
+            rows="4"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Medicamentos y dosis prescritas..."
+            [(ngModel)]="formData.tratamiento"
+            name="tratamiento"
+          ></textarea>
+        </div>
+
+        <!-- Observaciones -->
+        <div class="space-y-2">
+          <label for="observaciones" class="text-sm font-medium text-slate-700">Observaciones adicionales</label>
+          <textarea
+            id="observaciones"
+            rows="3"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Notas, recomendaciones, próximas revisiones..."
+            [(ngModel)]="formData.observaciones"
+            name="observaciones"
+          ></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3 border-t border-slate-200 pt-4">
+          <button
+            type="button"
+            (click)="goBack()"
+            class="flex-1 rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="flex-1 inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
+          >
+            <lucide-icon [img]="Save" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+            Guardar historial
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Info Card -->
+  <div class="rounded-xl border border-blue-200 bg-blue-50 shadow-sm">
+    <div class="p-6 pt-6">
+      <div class="flex gap-3">
+        <lucide-icon [img]="Info" class="h-6 w-6 flex-shrink-0 text-blue-600" [strokeWidth]="1.5"></lucide-icon>
+        <div>
+          <h3 class="mb-1 text-base font-semibold text-[#004D40]">Información importante</h3>
+          <p class="text-sm text-slate-700">
+            Esta información quedará registrada permanentemente en el historial médico del paciente.
+            Asegúrate de revisar todos los datos antes de guardar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tratamiento -->
+  <div
+    *ngIf="isTratamientoDialogOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center"
+    (click)="closeTratamientoDialog()"
+  >
+    <!-- overlay -->
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <!-- panel -->
+    <div
+      class="relative mx-4 w-full max-w-[600px] max-h-[90vh] overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-xl"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="flex items-start justify-between border-b border-slate-200 p-6">
+        <div>
+          <h3 class="text-base font-semibold text-[#004D40]">Añadir Tratamiento</h3>
+          <p class="mt-1 text-sm text-slate-600">Registra un nuevo tratamiento para el paciente.</p>
+        </div>
+        <button
+          type="button"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
+          (click)="closeTratamientoDialog()"
+        >
+          <lucide-icon [img]="X" class="h-4 w-4 text-slate-600" [strokeWidth]="1.5"></lucide-icon>
+        </button>
+      </div>
+
+      <div class="space-y-4 p-6">
+        <div class="space-y-2">
+          <label for="nombreTratamiento" class="text-sm font-medium text-slate-700">Nombre del tratamiento *</label>
+          <input
+            id="nombreTratamiento"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Ej: Antiparasitario externo"
+            [(ngModel)]="tratamientoForm.nombre"
+            name="nombreTratamiento"
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="medicamento" class="text-sm font-medium text-slate-700">Medicamento *</label>
+          <input
+            id="medicamento"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Ej: Bravecto, Amoxicilina..."
+            [(ngModel)]="tratamientoForm.medicamento"
+            name="medicamento"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div class="space-y-2">
+            <label for="dosis" class="text-sm font-medium text-slate-700">Dosis *</label>
+            <input
+              id="dosis"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              placeholder="Ej: 500mg, 1 comprimido"
+              [(ngModel)]="tratamientoForm.dosis"
+              name="dosis"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="frecuencia" class="text-sm font-medium text-slate-700">Frecuencia *</label>
+            <input
+              id="frecuencia"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              placeholder="Ej: Cada 12h, Diaria"
+              [(ngModel)]="tratamientoForm.frecuencia"
+              name="frecuencia"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div class="space-y-2">
+            <label for="fechaInicio" class="text-sm font-medium text-slate-700">Fecha de inicio *</label>
+            <input
+              id="fechaInicio"
+              type="date"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              [(ngModel)]="tratamientoForm.fechaInicio"
+              name="fechaInicio"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="fechaFin" class="text-sm font-medium text-slate-700">Fecha fin </label>
+            <input
+              id="fechaFin"
+              type="date"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              [(ngModel)]="tratamientoForm.fechaFin"
+              name="fechaFin"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="indicaciones" class="text-sm font-medium text-slate-700">Indicaciones *</label>
+          <textarea
+            id="indicaciones"
+            rows="4"
+            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+            placeholder="Instrucciones especiales para la administración..."
+            [(ngModel)]="tratamientoForm.indicaciones"
+            name="indicaciones"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="flex gap-3 border-t border-slate-200 p-6">
+        <button
+          type="button"
+          class="flex-1 rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          (click)="closeTratamientoDialog()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="button"
+          class="flex-1 rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A] disabled:cursor-not-allowed disabled:opacity-60"
+          (click)="handleSaveTratamiento()"
+          [disabled]="isTratamientoInvalid"
+        >
+          Guardar tratamiento
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

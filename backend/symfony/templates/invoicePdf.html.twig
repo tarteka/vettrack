@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura {{ invoice.invoiceNumber }}</title>
+
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 12px;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .clinic {
+            float: left;
+            width: 60%;
+        }
+
+        .invoice-info {
+            float: right;
+            width: 35%;
+            text-align: right;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        hr {
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .totals {
+            margin-top: 15px;
+            width: 40%;
+            float: right;
+        }
+
+        .totals td {
+            border: none;
+            padding: 4px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 10px;
+            text-align: center;
+            color: #777;
+        }
+
+        .watermark-footer {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-12deg);
+            font-size: 64px;
+            font-weight: 700;
+            color: #777;
+            opacity: 0.18;
+            letter-spacing: 6px;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body style="position: relative; min-height: 100%;">
+
+{% if invoice.status.value == 'pagada' %}
+    <div class="watermark-footer" style="color: red;">PAGADA</div>
+{% elseif invoice.status.value == 'cancelada' %}
+    <div class="watermark-footer" style="color: red;">CANCELADA</div>
+{% endif %}
+
+<div class="header">
+    <div class="clinic">
+        <h2>{{ clinic.clinicName }}</h2>
+        <p>
+            {{ clinic.address }}<br>
+            {{ clinic.postalCode }} {{ clinic.city }} ({{ clinic.province }})<br>
+            {{ clinic.country }}<br>
+            NIF: {{ clinic.cif }}<br>
+            Tel: {{ clinic.phone }} · {{ clinic.email }}
+        </p>
+    </div>
+
+    <div class="invoice-info">
+        <h1>FACTURA</h1>
+        <p>
+            Nº {{ invoice.invoiceNumber }}<br>
+            Fecha: {{ invoice.invoiceDate|date('d/m/Y') }}<br>
+            Estado: {{ invoice.status.value|upper }}<br>
+
+            {% if invoice.paymentMethod %}
+                Pago: {{ invoice.paymentMethod.value }}<br>
+            {% endif %}
+
+            {% if invoice.paymentDate %}
+                Fecha pago: {{ invoice.paymentDate|date('d/m/Y') }}
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<hr>
+
+<h3>Datos del cliente</h3>
+<p>
+    <strong>{{ invoice.user.fullName }}</strong><br>
+    NIF: {{ invoice.user.dni }}<br>
+
+    {% if invoice.user.address %}
+        {{ invoice.user.address }}<br>
+    {% endif %}
+
+    {% if invoice.user.zipCode or invoice.user.city %}
+        {{ invoice.user.zipCode }} {{ invoice.user.city }}<br>
+    {% endif %}
+
+    {% if invoice.user.country %}
+        {{ invoice.user.country }}<br>
+    {% endif %}
+
+    {% if invoice.user.email %}
+        {{ invoice.user.email }}<br>
+    {% endif %}
+
+    {% if invoice.user.phone %}
+        Tel: {{ invoice.user.phone }}
+    {% endif %}
+</p>
+
+<hr>
+
+<h3>Detalle de servicios</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Servicio</th>
+        <th class="center">Cantidad</th>
+        <th class="right">IVA %</th>
+        <th class="right">Subtotal</th>
+        <th class="right">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in invoice.invoiceItems %}
+        <tr>
+            <td>{{ item.service.name }}</td>
+            <td class="center">{{ item.quantity }}</td>
+            <td class="right">{{ item.service.taxRate }} %</td>
+            <td class="right">{{ item.subTotal|number_format(2, ',', '.') }} €</td>
+            <td class="right">{{ item.totalAmount|number_format(2, ',', '.') }} €</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<table class="totals">
+    <tr>
+        <td class="right"><strong>Subtotal:</strong></td>
+        <td class="right">{{ invoice.subtotal|number_format(2, ',', '.') }} €</td>
+    </tr>
+    <tr>
+        <td class="right"><strong>IVA:</strong></td>
+        <td class="right">{{ invoice.taxAmount|number_format(2, ',', '.') }} €</td>
+    </tr>
+    <tr>
+        <td class="right"><strong>Total:</strong></td>
+        <td class="right"><strong>{{ invoice.totalAmount|number_format(2, ',', '.') }} €</strong></td>
+    </tr>
+</table>
+
+<div class="clear"></div>
+
+{% if invoice.notes %}
+    <hr>
+    <p>
+        <strong>Notas:</strong><br>
+        {{ invoice.notes }}
+    </p>
+{% endif %}
+
+<div class="footer">
+    Documento generado automáticamente · {{ "now"|date("d/m/Y H:i") }}
+</div>
+
+</body>
+</html>

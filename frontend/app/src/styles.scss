@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+/* Importa fuente global */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* =======================
+   🎨 Variables de tema
+   ======================= */
+:root {
+  --font-size: 16px;
+  --background: #F7F9FA;
+  --foreground: #212121;
+  --card: #ffffff;
+  --card-foreground: #212121;
+  --popover: #ffffff;
+  --popover-foreground: #212121;
+  --primary: #009688;
+  --primary-foreground: #ffffff;
+  --secondary: #004D40;
+  --secondary-foreground: #ffffff;
+  --muted: #e0e0e0;
+  --muted-foreground: #757575;
+  --accent: #26A69A;
+  --accent-foreground: #ffffff;
+  --destructive: #d32f2f;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #ffffff;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #009688;
+  --chart-1: #009688;
+  --chart-2: #26A69A;
+  --chart-3: #004D40;
+  --chart-4: #00897B;
+  --chart-5: #4DB6AC;
+  --radius: 0.5rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #212121;
+  --sidebar-primary: #009688;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #F7F9FA;
+  --sidebar-accent-foreground: #212121;
+  --sidebar-border: rgba(0, 0, 0, 0.1);
+  --sidebar-ring: #009688;
+}
+
+/* =======================
+   🌙 Tema oscuro
+   ======================= */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+/* =======================
+   🧠 Base global
+   ======================= */
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+  outline-color: var(--ring);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--font-size);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =======================
+   🧾 Tipografía base
+   ======================= */
+h1, h2, h3, h4, p, label, button, input {
+  line-height: 1.5;
+}
+
+h1 { font-size: 2rem; font-weight: var(--font-weight-medium); }
+h2 { font-size: 1.5rem; font-weight: var(--font-weight-medium); }
+h3 { font-size: 1.25rem; font-weight: var(--font-weight-medium); }
+h4, p, label, button, input { font-size: 1rem; font-weight: var(--font-weight-normal); }
+
+html {
+  font-size: var(--font-size);
+}
+
+button:disabled,
+button[disabled] {
+  opacity: 0.6;
+  filter: saturate(0.6) brightness(0.9);
+}
+
+/* Cambia el cursor al pasar por un evento del calendario */
+.fc-event {
+  cursor: pointer;
+}
+
+/* Opcional: refuerzo visual al hacer hover */
+.fc-event:hover {
+  filter: brightness(0.95);
+}
+
+.fc .fc-button-primary {
+  background-color:  var(--primary) !important;
+  border-color:   var(--background) !important;
+  color: white !important;
+}
+
+.fc .fc-button-primary:hover {
+  background-color:  var(--accent) !important;
+  border-color:   var(--accent) !important;
+  color: white !important;
+}
+
+.fc-event-title {
+  white-space: nowrap;        /* una sola línea */
+  overflow: hidden;           /* oculta el desbordamiento */
+  text-overflow: ellipsis;    /* muestra "…" */
+}
+
+@media (max-width: 640px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+  }
+}

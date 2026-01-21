@@ -1,0 +1,7 @@
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# SYMFONY VETTRACK: Generar slots de citas (30 días vista) cada noche cada día a las 01:00
+0 1 * * * cd /var/www/symfony && php bin/console app:appointments:generate-slots --days=30 >> /var/log/cron.log 2>&1
+
+# SYMFONY VETTRACK: Completar tratamientos vencidos cada día a las 02:00
+0 2 * * * cd /var/www/symfony && php bin/console app:treatments:complete-expired >> /var/log/cron.log 2>&1

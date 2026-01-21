@@ -1,0 +1,125 @@
+<div class="flex flex-col gap-6">
+
+  <!-- Título -->
+  <div>
+    <h2 class="text-2xl font-semibold text-teal-900">Dashboard Veterinario</h2>
+    <p class="mt-1 text-sm text-gray-600">Resumen de hoy - {{ todayLabel }}</p>
+  </div>
+
+  <!-- Accesos rápidos -->
+  <div class="rounded-xl bg-white p-4 shadow-sm">
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900">Accesos rápidos</h3>
+    </div>
+
+    <div class="mt-3 grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(180px,1fr))]">
+
+      <button
+        type="button"
+        class="w-full rounded-xl border-2 border-teal-600 bg-white py-6 transition hover:bg-teal-600"
+        (click)="onNavigate('pacientes')"
+      >
+        <div class="flex flex-col items-center gap-2 text-teal-600 transition hover:text-white">
+          <lucide-icon name="paw-print" class="h-6 w-6"></lucide-icon>
+          <span class="text-sm font-semibold">Gestionar Mascotas</span>
+        </div>
+      </button>
+
+      <button
+        type="button"
+        class="w-full rounded-xl border-2 border-teal-500 bg-white py-6 transition hover:bg-teal-500"
+        (click)="onNavigate('calendario')"
+      >
+        <div class="flex flex-col items-center gap-2 text-teal-500 transition hover:text-white">
+          <lucide-icon name="calendar" class="h-6 w-6"></lucide-icon>
+          <span class="text-sm font-semibold">Ver Calendario</span>
+        </div>
+      </button>
+
+      <button
+        type="button"
+        class="w-full rounded-xl border-2 border-emerald-600 bg-white py-6 transition hover:bg-emerald-600"
+        (click)="onNavigate('facturas-vet')"
+      >
+        <div class="flex flex-col items-center gap-2 text-emerald-600 transition hover:text-white">
+          <lucide-icon name="dollar-sign" class="h-6 w-6"></lucide-icon>
+          <span class="text-sm font-semibold">Facturación</span>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Grid principal -->
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <!-- Citas del día (2/3) -->
+    <div class="rounded-xl bg-white p-4 shadow-sm lg:col-span-2">
+      <div class="flex items-center gap-2">
+        <lucide-icon name="clock" class="h-5 w-5 text-teal-600"></lucide-icon>
+        <h3 class="text-lg font-semibold text-gray-900">Citas del día</h3>
+      </div>
+
+      <div class="mt-3 flex flex-col gap-3">
+        <div
+          *ngFor="let cita of citasHoy"
+          class="flex cursor-pointer items-center justify-between rounded-xl border border-gray-200 p-3 transition hover:border-teal-600"
+          (click)="onNavigate('calendario')"
+        >
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-teal-600/10 text-sm font-semibold text-teal-700">
+              {{ cita.hora }}
+            </div>
+
+            <div>
+              <p class="m-0 text-sm font-semibold text-gray-900">{{ cita.mascota }}</p>
+              <p class="m-0 mt-0.5 text-xs text-gray-600">{{ cita.propietario }}</p>
+            </div>
+          </div>
+
+          <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+            {{ cita.tipo }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notificaciones (1/3) -->
+    <div class="rounded-xl bg-white p-4 shadow-sm lg:col-span-1">
+      <div class="flex items-center gap-2">
+        <lucide-icon name="alert-circle" class="h-5 w-5 text-teal-600"></lucide-icon>
+        <h3 class="text-lg font-semibold text-gray-900">Notificaciones</h3>
+      </div>
+
+      <div class="mt-3 flex flex-col gap-3">
+        <!-- Si hay notificaciones -->
+        <ng-container *ngIf="notificaciones.length > 0; else noNotifications">
+          <div
+            *ngFor="let notif of notificaciones"
+            class="rounded-lg border p-3 text-sm text-gray-800
+                   transition hover:border-  hover:bg-white cursor-pointer"
+            (click)="notif.tipo === 'cita' && onCitaNotificationClick(notif.id)"
+            [ngClass]="notif.prioridad === 'warning'
+          ? 'border-amber-200 bg-amber-50'
+          : notif.prioridad === 'urgente'
+            ? 'border-red-200 bg-red-50'
+            : 'border-blue-200 bg-blue-50'"
+          >
+            <span
+              class="font-semibold text-white px-2 py-0.5 rounded"
+              [ngClass]="notif.tipo === 'cita' ? 'bg-red-600' : 'bg-blue-600'"
+            >{{ notif.title }}</span>
+            {{ notif.message }}
+          </div>
+        </ng-container>
+
+        <!-- Si NO hay notificaciones -->
+        <ng-template #noNotifications>
+          <div class="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4 text-center text-sm text-gray-500">
+            Sin notificaciones pendientes de gestionar
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="min-h-screen flex items-center justify-center bg-emerald-50 px-4">
+  <div class="max-w-md w-full text-center bg-white rounded-xl shadow-lg p-8 border border-emerald-100">
+
+    <!-- Icono -->
+    <div class="flex justify-center mb-4 text-emerald-500">
+      <lucide-icon name="triangle-alert" size="64"></lucide-icon>
+    </div>
+
+    <!-- Código -->
+    <h1 class="text-7xl font-bold text-emerald-800">404</h1>
+
+    <!-- Texto -->
+    <h2 class="mt-2 text-xl font-semibold text-emerald-700">
+      Página no encontrada
+    </h2>
+    <p class="mt-3 text-emerald-600">
+      La página que estás buscando no existe o no tienes acceso.
+    </p>
+
+    <!-- Acciones -->
+    <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+      <a
+        routerLink="/auth/login"
+        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 transition"
+      >
+        <lucide-icon name="home" size="18"></lucide-icon>
+        Ir al inicio
+      </a>
+
+      <button
+        (click)="goBack()"
+        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition"
+      >
+        <lucide-icon name="arrow-left" size="18"></lucide-icon>
+        Volver atrás
+      </button>
+    </div>
+
+  </div>
+</div>

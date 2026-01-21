@@ -1,0 +1,608 @@
+<div class="flex flex-col gap-4">
+
+  <!-- Toast -->
+  <div
+    *ngIf="toastVisible"
+    class="fixed right-4 top-4 z-[60] min-w-[260px] rounded-xl border bg-white px-3 py-2 text-sm text-gray-900 shadow-lg"
+    [ngClass]="toastType==='success'
+      ? 'border-green-200 bg-green-50'
+      : toastType==='error'
+        ? 'border-red-200 bg-red-50'
+        : 'border-blue-200 bg-blue-50'"
+  >
+    {{ toastMessage }}
+  </div>
+
+  <!-- Volver -->
+  <button
+    type="button"
+    class="mb-1 inline-flex items-center gap-2 py-2 text-gray-700 hover:text-gray-900"
+    (click)="go('mascotas')"
+  >
+    <lucide-icon name="arrow-left" class="h-4 w-4"></lucide-icon>
+    <span class="hidden sm:inline">Volver a Pacientes</span>
+    <span class="inline sm:hidden">Volver</span>
+  </button>
+
+  <!-- Título -->
+  <div>
+    <h2 class="text-[22px] font-semibold text-teal-900">Ficha de {{ mascota.nombre }}</h2>
+    <p class="mt-1 text-sm text-gray-500">Historial clínico completo</p>
+  </div>
+
+  <!-- Grid superior -->
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
+
+    <!-- Info mascota (2/3) -->
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-2">
+      <div class="flex flex-col gap-3 border-b border-gray-200 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
+          <lucide-icon name="paw-print" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+          Información de la Mascota
+        </h3>
+      </div>
+
+      <div class="p-4">
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Nombre</p>
+            <p class="text-sm text-gray-900">{{ mascota.nombre }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Especie / Raza</p>
+            <p class="text-sm text-gray-900">{{ mascota.especie }} - {{ mascota.raza }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Fecha de Nacimiento</p>
+            <p class="text-sm text-gray-900">{{ formatBirthDate() }} ({{ mascota.edad }})</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Sexo</p>
+            <p class="text-sm text-gray-900">{{ mascota.sexo }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Peso</p>
+            <p class="text-sm text-gray-900">{{ mascota.peso | number:'1.0-2' }} kg</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Color</p>
+            <p class="text-sm text-gray-900">{{ mascota.color }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Número de Chip</p>
+            <p class="text-sm text-gray-900">{{ mascota.chip }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <p class="text-xs text-gray-500">Esterilizado</p>
+            <p class="text-sm text-gray-900">{{ getEsterilizadoText() }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1 md:col-span-2">
+            <p class="text-xs text-gray-500">Alergias conocidas</p>
+            <p class="text-sm text-gray-900">{{ mascota.alergias }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1 md:col-span-2">
+            <p class="text-xs text-gray-500">Seguro veterinario</p>
+            <p class="text-sm text-gray-900">{{ mascota.seguro }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Propietario (1/3) -->
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-1">
+      <div class="border-b border-gray-200 p-4">
+        <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
+          <lucide-icon name="user" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+          Propietario
+        </h3>
+      </div>
+
+      <div class="flex flex-col gap-3 p-4">
+        <div class="flex flex-col gap-1">
+          <p class="text-xs text-gray-500">Nombre</p>
+          <p class="text-sm text-gray-900">{{ mascota.propietario }}</p>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <p class="text-xs text-gray-500">DNI</p>
+          <p class="text-sm text-gray-900">{{ mascota.propietarioDNI }}</p>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <p class="text-xs text-gray-500">Teléfono</p>
+          <p class="text-sm text-gray-900">{{ mascota.propietarioTelefono }}</p>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <p class="text-xs text-gray-500">Email</p>
+          <p class="break-words text-sm text-gray-900">{{ mascota.propietarioEmail }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          (click)="go('ficha-cliente', { clienteId: mascota.propietarioId })"
+        >
+          Ver perfil completo
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Expediente -->
+  <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
+    <div class="flex flex-col gap-3 border-b border-gray-200 p-4 md:flex-row md:items-center md:justify-between">
+      <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
+        <lucide-icon name="file-text" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+        Expediente Clínico
+      </h3>
+
+      <div class="flex flex-wrap gap-2">
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-500"
+          (click)="goToHistoriaClinica()"
+        >
+          <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+          Nueva consulta
+        </button>
+      </div>
+    </div>
+
+    <div class="p-4">
+
+      <!-- Tabs -->
+      <div class="grid grid-cols-2 overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+        <button
+          type="button"
+          class="flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700"
+          [ngClass]="activeTab==='historia' ? 'bg-white font-bold text-teal-900' : ''"
+          (click)="setTab('historia')"
+        >
+          Historia Clínica
+        </button>
+
+        <button
+          type="button"
+          class="flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700"
+          [ngClass]="activeTab==='tratamientos' ? 'bg-white font-bold text-teal-900' : ''"
+          (click)="setTab('tratamientos')"
+        >
+          Tratamientos
+          <span
+            *ngIf="tratamientosActivos.length > 0"
+            class="rounded-full bg-teal-600 px-2 py-0.5 text-xs font-bold text-white"
+          >
+            {{ tratamientosActivos.length }}
+          </span>
+        </button>
+      </div>
+
+      <!-- HISTORIA -->
+      <div *ngIf="activeTab==='historia'" class="mt-4 flex flex-col gap-3">
+
+        <div *ngFor="let consulta of historiaClinica" class="rounded-xl border border-gray-200 bg-white transition hover:shadow-md">
+          <div class="p-4">
+            <div class="mb-3 flex items-start justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex h-11 w-11 items-center justify-center rounded-full"
+                  [ngClass]="getTipoBadgeClass(consulta.tipo)"
+                >
+                  <lucide-icon [name]="getTipoIconName(consulta.tipo)" class="h-5 w-5"></lucide-icon>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="text-[15px] font-semibold text-gray-900">{{ consulta.motivo }}</h4>
+                    <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+                          [ngClass]="getTipoBadgeClass(consulta.tipo)">
+                      {{ consulta.tipo }}
+                    </span>
+                  </div>
+                  <p class="mt-1 text-sm text-gray-500">{{ consulta.veterinario }}</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <lucide-icon name="calendar" class="h-4 w-4"></lucide-icon>
+                <span>{{ consulta.fecha }}</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3 rounded-xl bg-gray-50 p-3 md:grid-cols-2">
+              <div class="flex flex-col gap-1">
+                <p class="text-xs text-gray-500">Diagnóstico</p>
+                <p class="text-sm text-gray-900 leading-snug">{{ consulta.diagnostico }}</p>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <p class="text-xs text-gray-500">Procedimientos</p>
+                <p class="text-sm text-gray-900 leading-snug">{{ consulta.procedimientos }}</p>
+              </div>
+
+              <div class="flex flex-col gap-1" *ngIf="consulta.proximaCita">
+                <p class="text-xs text-gray-500">Próxima cita</p>
+                <p class="text-sm font-semibold text-teal-700">{{ consulta.proximaCita }}</p>
+              </div>
+
+              <div class="flex flex-col gap-1" *ngIf="consulta.notas">
+                <p class="text-xs text-gray-500">Notas</p>
+                <p class="text-sm text-gray-900 leading-snug">{{ consulta.notas }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="historiaClinica.length===0" class="py-8 text-center text-sm text-gray-500">
+          No hay registros en la historia clínica
+        </div>
+      </div>
+
+      <!-- TRATAMIENTOS -->
+      <div *ngIf="activeTab==='tratamientos'" class="mt-4 flex flex-col gap-4">
+
+        <!-- Activos -->
+        <div *ngIf="tratamientosActivos.length>0" class="flex flex-col gap-3">
+          <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
+            <lucide-icon name="check-circle" class="h-[18px] w-[18px] text-emerald-600"></lucide-icon>
+            Tratamientos Activos
+          </h3>
+
+          <div class="flex flex-col gap-3">
+            <div
+              *ngFor="let t of tratamientosActivos"
+              class="rounded-xl border border-gray-200 bg-white shadow-sm"
+            >
+              <div class="border-l-4 border-emerald-500 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-start gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                      <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                    </div>
+
+                    <div>
+                      <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>
+                      <p class="mt-1 text-sm text-gray-500">{{ t.medicine }}</p>
+                    </div>
+                  </div>
+
+                  <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">Activo</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-5 gap-3 rounded-xl bg-gray-50 p-3">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Dosis</p>
+                    <p class="text-sm text-gray-900">{{ t.dose }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Frecuencia</p>
+                    <p class="text-sm text-gray-900">{{ t.frequency }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Duración</p>
+                    <p class="text-sm text-gray-900">{{ t.duration }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Fecha inicio</p>
+                    <p class="text-sm text-gray-900">{{ t.startDate }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Fecha fin</p>
+                    <p class="text-sm text-gray-900" [class.text-gray-400]="!t.endDate">{{ t.endDate || '---' }}</p>
+                  </div>
+
+                </div>
+
+                <div class="mt-3 flex flex-col gap-1">
+                  <p class="text-xs text-gray-500">Indicaciones</p>
+                  <p class="text-sm text-gray-900 leading-snug">{{ t.instructions }}</p>
+                </div>
+
+                <div class="mt-3 flex items-center justify-between border-t border-gray-200 pt-3">
+                  <!-- Prescrito por a la izquierda -->
+                  <p class="text-xs text-gray-500">Prescrito por: {{ t.veterinarianFullName }}</p>
+
+                  <!-- Botones alineados a la derecha -->
+                  <div class="flex gap-2">
+                    <button
+                      type="button"
+                      (click)="suspenderTratamiento(t)"
+                      class="rounded-md border border-gray-300 px-3 py-1 text-xs text-gray-700 hover:bg-gray-50"
+                    >
+                      Suspender
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="openModificarTratamientoModal(t)"
+                      class="rounded-md bg-teal-600 px-3 py-1 text-xs text-white hover:bg-teal-700"
+                    >
+                      Modificar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Completados -->
+        <div *ngIf="tratamientosCompletados.length>0" class="flex flex-col gap-3">
+          <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
+            <lucide-icon name="x-circle" class="h-[18px] w-[18px] text-gray-500"></lucide-icon>
+            Tratamientos Completados
+          </h3>
+
+          <div class="flex flex-col gap-3">
+            <div
+              *ngFor="let t of tratamientosCompletados"
+              class="rounded-xl border border-gray-200 bg-white opacity-80 shadow-sm"
+            >
+              <div class="border-l-4 border-gray-300 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-start gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                      <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                    </div>
+
+                    <div>
+                      <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>
+                      <p class="mt-1 text-sm text-gray-500">{{ t.medicine }}</p>
+                    </div>
+                  </div>
+
+                  <span class="rounded-full bg-emerald-700/90 px-3 py-1 text-xs font-bold text-gray-700">Completado</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-2 gap-3 rounded-xl bg-gray-50 p-3 md:grid-cols-4">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Dosis</p>
+                    <p class="text-sm text-gray-900">{{ t.dose }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Frecuencia</p>
+                    <p class="text-sm text-gray-900">{{ t.frequency }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Duración</p>
+                    <p class="text-sm text-gray-900">{{ t.duration }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Periodo</p>
+                    <p class="text-sm text-gray-900">{{ t.startDate }} - {{ t.endDate }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tratamientos.length===0" class="py-8 text-center text-sm text-gray-500">
+          No hay tratamientos registrados
+        </div>
+
+        <!-- SUSPENDIDOS -->
+
+        <div *ngIf="tratamientosSuspendidos.length>0" class="flex flex-col gap-3">
+          <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
+            <lucide-icon name="circle-pause" class="h-[18px] w-[18px] text-gray-500"></lucide-icon>
+            Tratamientos Suspendidos
+          </h3>
+
+          <div class="flex flex-col gap-3">
+            <div
+              *ngFor="let t of tratamientosSuspendidos"
+              class="rounded-xl border border-gray-200 bg-white opacity-80 shadow-sm"
+            >
+              <div class="border-l-4 border-gray-300 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-start gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                      <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                    </div>
+
+                    <div>
+                      <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>
+                      <p class="mt-1 text-sm text-gray-500">{{ t.medicine }}</p>
+                    </div>
+                  </div>
+
+                  <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700">Suspendido</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-2 gap-3 rounded-xl bg-gray-50 p-3 md:grid-cols-4">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Dosis</p>
+                    <p class="text-sm text-gray-900">{{ t.dose }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Frecuencia</p>
+                    <p class="text-sm text-gray-900">{{ t.frequency }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Duración</p>
+                    <p class="text-sm text-gray-900">{{ t.duration }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Periodo</p>
+                    <p class="text-sm text-gray-900">{{ t.startDate }} - {{ t.endDate }}</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-xs text-gray-500">Motivo de cancelación</p>
+                    <p class="text-sm text-red-700 font-semibold">
+                      {{ t.suspendedReason || '—' }}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tratamientos.length===0" class="py-8 text-center text-sm text-gray-500">
+          No hay tratamientos registrados
+        </div>
+
+  <!-- MODAL: NUEVA CONSULTA -->
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4"
+    *ngIf="isConsultaDialogOpen"
+    (click)="closeConsultaDialog(true)"
+  >
+    <div class="w-full max-w-2xl overflow-hidden rounded-xl border border-gray-200 bg-white"
+         (click)="$event.stopPropagation()">
+      <div class="border-b border-gray-200 p-4">
+        <h3 class="text-lg font-semibold text-teal-900">Nueva Consulta</h3>
+        <p class="mt-1 text-sm text-gray-500">Registra una nueva consulta en la historia clínica de {{ mascota.nombre }}.</p>
+      </div>
+
+      <div class="max-h-[90vh] overflow-y-auto p-4">
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Tipo de consulta *</label>
+            <select [(ngModel)]="consultaForm.tipo" name="tipo"
+                    class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20">
+              <option value="" disabled>Seleccionar tipo</option>
+              <option value="Consulta general">Consulta general</option>
+              <option value="Emergencia">Emergencia</option>
+              <option value="Cirugía">Cirugía</option>
+              <option value="Revisión">Revisión</option>
+              <option value="Vacunación">Vacunación</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Motivo de consulta *</label>
+            <input [(ngModel)]="consultaForm.motivo" name="motivo" placeholder="Ej: Chequeo anual, Vacunación..."
+                   class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Diagnóstico *</label>
+            <textarea rows="3" [(ngModel)]="consultaForm.diagnostico" name="diagnostico" placeholder="Descripción del diagnóstico..."
+                      class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Procedimientos</label>
+            <textarea rows="3" [(ngModel)]="consultaForm.procedimientos" name="procedimientos" placeholder="Procedimientos realizados..."
+                      class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Notas adicionales</label>
+            <textarea rows="2" [(ngModel)]="consultaForm.notas" name="notas" placeholder="Observaciones..."
+                      class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-end gap-2 border-t border-gray-200 p-4">
+        <button type="button"
+                class="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                (click)="closeConsultaDialog(false)">
+          Cancelar
+        </button>
+
+        <button type="button"
+                class="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:bg-teal-200"
+                (click)="handleSaveConsulta()"
+                [disabled]="isConsultaSaveDisabled">
+          Guardar consulta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MODIFICAR TRATAMIENTO / NUEVO TRATAMIENTO EDITADO  -->
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4"
+    *ngIf="isTratamientoDialogOpen"
+    (click)="closeTratamientoDialog(true)"
+  >
+    <div class="w-full max-w-2xl overflow-hidden rounded-xl border border-gray-200 bg-white"
+         (click)="$event.stopPropagation()">
+      <div class="border-b border-gray-200 p-4">
+        <h3 class="text-lg font-semibold text-teal-900">Modificar Tratamiento</h3>
+        <p class="mt-1 text-sm text-gray-500">Modifica el tratamiento de {{ mascota.nombre }}.</p>
+      </div>
+
+      <div class="max-h-[90vh] overflow-y-auto p-4">
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Nombre del tratamiento *</label>
+            <input [(ngModel)]="tratamientoForm.nombre" name="nombreTrat" placeholder="Ej: Antiparasitario externo"
+                   class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Medicamento *</label>
+            <input [(ngModel)]="tratamientoForm.medicamento" name="medicamento" placeholder="Ej: Bravecto, Amoxicilina..."
+                   class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+          </div>
+
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-gray-700">Dosis *</label>
+              <input [(ngModel)]="tratamientoForm.dosis" name="dosis" placeholder="Ej: 500mg, 1 comprimido"
+                     class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-gray-700">Frecuencia *</label>
+              <input [(ngModel)]="tratamientoForm.frecuencia" name="frecuencia" placeholder="Ej: Cada 12h, Diaria"
+                     class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-gray-700">Fecha de inicio *</label>
+              <input type="date" [(ngModel)]="tratamientoForm.fechaInicio" name="fechaInicio"
+                     class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-sm text-gray-700">Fecha fin </label>
+              <input type="date" [(ngModel)]="tratamientoForm.fechaFin" name="fechaFin"
+                    class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20" />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm text-gray-700">Indicaciones *</label>
+            <textarea rows="4" [(ngModel)]="tratamientoForm.indicaciones" name="indicaciones" placeholder="Instrucciones especiales para la administración..."
+                      class="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-end gap-2 border-t border-gray-200 p-4">
+        <button type="button"
+                class="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                (click)="closeTratamientoDialog(false)">
+          Cancelar
+        </button>
+
+        <button type="button"
+                class="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:bg-teal-200"
+                (click)="handleUpdateTratamiento()"
+                [disabled]="isTratamientoSaveDisabled">
+          Guardar tratamiento
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,79 @@
+<div class="space-y-6">
+  <!-- Volver -->
+  <button
+    type="button"
+    (click)="onNavigate('dashboard-client')"
+    class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+  >
+    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    Volver al inicio
+  </button>
+
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-semibold text-[#004D40]">Mis Mascotas</h2>
+      <p class="text-slate-600">Gestiona la información de tus compañeros</p>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    @for (mascota of mascotas; track mascota.id) {
+      <div
+        (click)="onNavigate('ficha-mascota', mascota)"
+        class="group cursor-pointer rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
+      >
+        <div class="p-6 space-y-3">
+          <!-- Título + especie/raza -->
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <h3 class="mb-1 truncate text-base font-semibold text-[#212121]">
+                {{ mascota.name }}
+              </h3>
+              <p class="truncate text-sm text-slate-600">
+                {{ mascota.petType.name || mascota.petType }} · {{ mascota.breed }}
+              </p>
+            </div>
+
+            <!-- Icono Condicional Moderno -->
+            <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#009688]/10">
+              @if (isDog(mascota)) {
+                <lucide-icon [img]="Dog" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+              } @else {
+                <lucide-icon [img]="Cat" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+              }
+            </div>
+          </div>
+
+          <!-- Datos -->
+          <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-3">
+            <div>
+              <p class="text-xs text-slate-500">Edad</p>
+              <p class="text-sm text-[#212121]">{{ mascota.age }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500">Peso</p>
+              <p class="text-sm text-[#212121]">{{ mascota.weight | number:'1.2-2'}} kg</p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <button
+            type="button"
+            (click)="$event.stopPropagation(); onNavigate('ficha-mascota', mascota)"
+            class="w-full rounded-md border border-[#009688] px-3 py-2 text-sm font-medium text-[#009688] transition hover:bg-[#009688] hover:text-white"
+          >
+            Ver ficha completa
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <!-- Mensaje si no hay mascotas -->
+      <div class="col-span-full py-10 text-center text-slate-500">
+        No se encontraron mascotas registradas.
+      </div>
+    }
+  </div>
+</div>
+

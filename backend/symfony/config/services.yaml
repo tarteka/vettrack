@@ -1,0 +1,60 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+  CLINIC_NAME: '%env(CLINIC_NAME)%'
+  CLINIC_CIF: '%env(CLINIC_CIF)%'
+  CLINIC_ADDRESS: '%env(CLINIC_ADDRESS)%'
+  CLINIC_POSTAL_CODE: '%env(CLINIC_POSTAL_CODE)%'
+  CLINIC_CITY: '%env(CLINIC_CITY)%'
+  CLINIC_PROVINCE: '%env(CLINIC_PROVINCE)%'
+  CLINIC_COUNTRY: '%env(CLINIC_COUNTRY)%'
+  CLINIC_PHONE: '%env(CLINIC_PHONE)%'
+  CLINIC_EMAIL: '%env(CLINIC_EMAIL)%'
+
+  ADMIN_EMAIL: '%env(ADMIN_EMAIL)%'
+  ADMIN_PASSWORD: '%env(ADMIN_PASSWORD)%'
+  ADMIN_FIRST_NAME: '%env(ADMIN_FIRST_NAME)%'
+  ADMIN_LAST_NAME: '%env(ADMIN_LAST_NAME)%'
+
+  CLIENT_EMAIL: '%env(CLIENT_EMAIL)%'
+  CLIENT_PASSWORD: '%env(CLIENT_PASSWORD)%'
+  CLIENT_FIRST_NAME: '%env(CLIENT_FIRST_NAME)%'
+  CLIENT_LAST_NAME: '%env(CLIENT_LAST_NAME)%'
+
+  MAIL_FROM_EMAIL: '%env(MAIL_FROM_EMAIL)%'
+  frontendUrl: '%env(FRONTEND_URL)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+          string $frontendUrl: '%frontendUrl%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Services\EmailService:
+      arguments:
+        $fromEmail: '%MAIL_FROM_EMAIL%'
+        $fromName: '%CLINIC_NAME%'
+
+    Dompdf\Dompdf:
+      arguments:
+        $options:
+          isRemoteEnabled: true
+          defaultFont: 'DejaVu Sans'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+

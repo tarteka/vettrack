@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        headers:
+            X-Mailer: 'Symfony Mailer'
+        envelope:
+            sender: 'vettrack@mg.libretux.com'
