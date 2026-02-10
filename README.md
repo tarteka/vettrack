@@ -70,10 +70,12 @@ Esta separación permite escalabilidad, mantenimiento independiente y despliegue
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Coautor
 
-**Sergio** - Estudiante de DAW  
+**Sergio** - Estudiante de DAW
 Especialización:  Desarrollo Web Full Stack
+
++ Junto con Amaiur, Sandra y Markel (todos estudiantes de BirtLH)
 
 ---
 
