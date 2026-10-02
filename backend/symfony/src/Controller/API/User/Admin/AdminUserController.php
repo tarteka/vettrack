@@ -18,6 +18,7 @@ use App\Security\Voter\UserVoter;
 use App\Services\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -107,7 +108,7 @@ class AdminUserController extends AbstractController
     #[Route('/{id}', name: 'get_by_id', methods: ['GET'])]
     #[IsGranted(attribute: UserVoter::VIEW, subject: 'user')]
     public function getById(
-        ?User $user,
+        #[MapEntity(id: 'id')] ?User $user,
         AppointmentRepository $appointmentRepository,
         PetRepository $petRepository,
     ): JsonResponse
@@ -131,7 +132,7 @@ class AdminUserController extends AbstractController
     #[Route('/{id}', name: 'update', methods: ['PATCH'])]
     #[IsGranted(attribute: UserVoter::EDIT, subject: 'user')]
     public function updateUserById(
-        ?User $user,
+        #[MapEntity(id: 'id')] ?User $user,
         #[MapRequestPayload] UpdateUserInputDto $dto,
     ): JsonResponse
     {
@@ -157,7 +158,7 @@ class AdminUserController extends AbstractController
 
     #[Route('/{id}', name: 'delete_by_id', methods: ['DELETE'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function deleteById(?User $user, PetRepository $petRepository): JsonResponse
+    public function deleteById(#[MapEntity(id: 'id')] ?User $user, PetRepository $petRepository): JsonResponse
     {
         if (!$user) {
             return ApiJsonResponse::notFound('User not found');
@@ -176,7 +177,7 @@ class AdminUserController extends AbstractController
 
     #[Route('/{id}/restore', name: 'restore_by_id', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function restoreById(?User $user, PetRepository $petRepository): JsonResponse
+    public function restoreById(#[MapEntity(id: 'id')] ?User $user, PetRepository $petRepository): JsonResponse
     {
         if (!$user) {
             return ApiJsonResponse::notFound('User not found');
