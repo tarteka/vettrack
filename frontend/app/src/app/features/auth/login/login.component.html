@@ -62,10 +62,10 @@
                   (click)="togglePasswordVisibility()"
                   [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
                   >
-                  <lucide-icon
-                    [name]="showPassword ? 'EyeOff' : 'eye'"
+                  <svg
+                    [lucideIcon]="showPassword ? 'eye-off' : 'eye'"
                     class="h-4 w-4"
-                  ></lucide-icon>
+                  ></svg>
                 </button>
               </div>
             </div>
@@ -135,7 +135,7 @@
             @if (!recoverySent) {
               <div>
                 <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg">
-                  <lucide-icon name="mail" class="h-11 w-11 text-white"></lucide-icon>
+                  <svg lucideIcon="mail" class="h-11 w-11 text-white"></svg>
                 </div>
                 <h2 class="mb-3 text-center text-2xl font-bold text-gray-900">¿Olvidaste tu contraseña?</h2>
                 <p class="mb-10 text-center text-lg leading-relaxed text-gray-600">
@@ -156,7 +156,7 @@
                           class="mt-2 text-left text-sm font-medium text-red-600"
                           >
                           <span class="inline-flex items-center gap-1">
-                            <lucide-icon name="alert-triangle" class="h-4 w-4"></lucide-icon>
+                            <svg lucideIcon="alert-triangle" class="h-4 w-4"></svg>
                             Por favor ingresa un correo electrónico válido
                           </span>
                         </div>
@@ -188,7 +188,7 @@
               @if (recoverySent) {
                 <div>
                   <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg">
-                    <lucide-icon name="check" class="h-11 w-11 text-white"></lucide-icon>
+                    <svg lucideIcon="check" class="h-11 w-11 text-white"></svg>
                   </div>
                   <h2 class="mb-3 text-center text-2xl font-bold text-gray-900">¡Correo enviado!</h2>
                   <p class="mb-10 text-center text-lg leading-relaxed text-gray-600">

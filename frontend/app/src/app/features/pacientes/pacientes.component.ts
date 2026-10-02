@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { ClientListItem, ClientService } from '../../core/services/client.service';
 import { PetTypeService } from '../../core/services/pet-type.service';
 import {PetApi, PetCreatePayload, PetService, PetUpdatePayload} from '../../core/services/pet.service';
@@ -64,7 +64,7 @@ type activeFilter  = 'all' | 'active' | 'inactive';
 @Component({
   selector: 'app-pacientes',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pacientes.component.html'
 })

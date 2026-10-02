@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LucideAngularModule} from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import {UserService} from '../../core/services/user.service';
 import {User} from '../../core/models/user.model';
 import {AlertService} from '../../core/services/alert.service';
@@ -10,7 +10,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './user-management.component.html'
 })

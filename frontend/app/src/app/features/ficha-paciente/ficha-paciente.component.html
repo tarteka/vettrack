@@ -20,7 +20,7 @@
     class="mb-1 inline-flex items-center gap-2 py-2 text-gray-700 hover:text-gray-900"
     (click)="go('mascotas')"
     >
-    <lucide-icon name="arrow-left" class="h-4 w-4"></lucide-icon>
+    <svg lucideIcon="arrow-left" class="h-4 w-4"></svg>
     <span class="hidden sm:inline">Volver a Pacientes</span>
     <span class="inline sm:hidden">Volver</span>
   </button>
@@ -38,7 +38,7 @@
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-2">
       <div class="flex flex-col gap-3 border-b border-gray-200 p-4 sm:flex-row sm:items-center sm:justify-between">
         <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
-          <lucide-icon name="paw-print" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+          <svg lucideIcon="paw-print" class="h-[18px] w-[18px] text-teal-600"></svg>
           Información de la Mascota
         </h3>
       </div>
@@ -102,7 +102,7 @@
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-1">
       <div class="border-b border-gray-200 p-4">
         <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
-          <lucide-icon name="user" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+          <svg lucideIcon="user" class="h-[18px] w-[18px] text-teal-600"></svg>
           Propietario
         </h3>
       </div>
@@ -144,7 +144,7 @@
   <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
     <div class="flex flex-col gap-3 border-b border-gray-200 p-4 md:flex-row md:items-center md:justify-between">
       <h3 class="inline-flex items-center gap-2 text-base font-bold text-teal-900">
-        <lucide-icon name="file-text" class="h-[18px] w-[18px] text-teal-600"></lucide-icon>
+        <svg lucideIcon="file-text" class="h-[18px] w-[18px] text-teal-600"></svg>
         Expediente Clínico
       </h3>
 
@@ -154,7 +154,7 @@
           class="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-500"
           (click)="goToHistoriaClinica()"
           >
-          <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+          <svg lucideIcon="plus" class="h-4 w-4"></svg>
           Nueva consulta
         </button>
       </div>
@@ -202,7 +202,7 @@
                       class="flex h-11 w-11 items-center justify-center rounded-full"
                       [ngClass]="getTipoBadgeClass(consulta.tipo)"
                       >
-                      <lucide-icon [name]="getTipoIconName(consulta.tipo)" class="h-5 w-5"></lucide-icon>
+                      <svg [lucideIcon]="getTipoIconName(consulta.tipo)" class="h-5 w-5"></svg>
                     </div>
                     <div>
                       <div class="flex items-center gap-2">
@@ -216,7 +216,7 @@
                     </div>
                   </div>
                   <div class="flex items-center gap-2 text-sm text-gray-500">
-                    <lucide-icon name="calendar" class="h-4 w-4"></lucide-icon>
+                    <svg lucideIcon="calendar" class="h-4 w-4"></svg>
                     <span>{{ consulta.fecha }}</span>
                   </div>
                 </div>
@@ -260,7 +260,7 @@
           @if (tratamientosActivos.length>0) {
             <div class="flex flex-col gap-3">
               <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
-                <lucide-icon name="check-circle" class="h-[18px] w-[18px] text-emerald-600"></lucide-icon>
+                <svg lucideIcon="check-circle" class="h-[18px] w-[18px] text-emerald-600"></svg>
                 Tratamientos Activos
               </h3>
               <div class="flex flex-col gap-3">
@@ -272,7 +272,7 @@
                       <div class="flex items-start justify-between gap-3">
                         <div class="flex items-start gap-3">
                           <div class="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                            <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                            <svg lucideIcon="pill" class="h-5 w-5"></svg>
                           </div>
                           <div>
                             <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>
@@ -338,7 +338,7 @@
           @if (tratamientosCompletados.length>0) {
             <div class="flex flex-col gap-3">
               <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
-                <lucide-icon name="x-circle" class="h-[18px] w-[18px] text-gray-500"></lucide-icon>
+                <svg lucideIcon="x-circle" class="h-[18px] w-[18px] text-gray-500"></svg>
                 Tratamientos Completados
               </h3>
               <div class="flex flex-col gap-3">
@@ -350,7 +350,7 @@
                       <div class="flex items-start justify-between gap-3">
                         <div class="flex items-start gap-3">
                           <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                            <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                            <svg lucideIcon="pill" class="h-5 w-5"></svg>
                           </div>
                           <div>
                             <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>
@@ -392,7 +392,7 @@
           @if (tratamientosSuspendidos.length>0) {
             <div class="flex flex-col gap-3">
               <h3 class="flex items-center gap-2 text-base font-extrabold text-teal-900">
-                <lucide-icon name="circle-pause" class="h-[18px] w-[18px] text-gray-500"></lucide-icon>
+                <svg lucideIcon="circle-pause" class="h-[18px] w-[18px] text-gray-500"></svg>
                 Tratamientos Suspendidos
               </h3>
               <div class="flex flex-col gap-3">
@@ -404,7 +404,7 @@
                       <div class="flex items-start justify-between gap-3">
                         <div class="flex items-start gap-3">
                           <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                            <lucide-icon name="pill" class="h-5 w-5"></lucide-icon>
+                            <svg lucideIcon="pill" class="h-5 w-5"></svg>
                           </div>
                           <div>
                             <h4 class="text-[15px] font-semibold text-gray-900">{{ t.name }}</h4>

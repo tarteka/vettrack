@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Search, Plus, Edit } from 'lucide-angular';
+import { LucideDynamicIcon, LucideSearch as Search, LucidePlus as Plus, LucideEdit as Edit } from '@lucide/angular';
 import { MedicalService } from '../../core/services/medical-service.service';
 import { Servicio, ServiceCategory } from '../../core/models/service.model';
 import { AlertService } from '../../core/services/alert.service';
@@ -20,7 +20,7 @@ interface ServicioPayload {
   imports: [
     CommonModule,
     FormsModule,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './servicios.component.html',

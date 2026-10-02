@@ -5,7 +5,7 @@
     (click)="goBack()"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
     >
-    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    <svg [lucideIcon]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
     Volver a ficha de mascota
   </button>
 
@@ -125,7 +125,7 @@
                   (click)="openTratamientoDialog()"
                   class="inline-flex items-center rounded-md border border-[#009688] px-3 py-1.5 text-sm font-medium text-[#009688] hover:bg-[#009688]/10"
                   >
-                  <lucide-icon [img]="Plus" class="mr-1 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                  <svg [lucideIcon]="Plus" class="mr-1 h-4 w-4" [strokeWidth]="1.5"></svg>
                   Añadir tratamiento
                 </button>
               </div>
@@ -167,7 +167,7 @@
                 type="submit"
                 class="flex-1 inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
                 >
-                <lucide-icon [img]="Save" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                <svg [lucideIcon]="Save" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
                 Guardar historial
               </button>
             </div>
@@ -179,7 +179,7 @@
       <div class="rounded-xl border border-blue-200 bg-blue-50 shadow-sm">
         <div class="p-6 pt-6">
           <div class="flex gap-3">
-            <lucide-icon [img]="Info" class="h-6 w-6 flex-shrink-0 text-blue-600" [strokeWidth]="1.5"></lucide-icon>
+            <svg [lucideIcon]="Info" class="h-6 w-6 flex-shrink-0 text-blue-600" [strokeWidth]="1.5"></svg>
             <div>
               <h3 class="mb-1 text-base font-semibold text-[#004D40]">Información importante</h3>
               <p class="text-sm text-slate-700">
@@ -214,7 +214,7 @@
                 class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
                 (click)="closeTratamientoDialog()"
                 >
-                <lucide-icon [img]="X" class="h-4 w-4 text-slate-600" [strokeWidth]="1.5"></lucide-icon>
+                <svg [lucideIcon]="X" class="h-4 w-4 text-slate-600" [strokeWidth]="1.5"></svg>
               </button>
             </div>
             <div class="space-y-4 p-6">

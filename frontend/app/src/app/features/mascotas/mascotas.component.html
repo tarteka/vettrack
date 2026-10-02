@@ -5,7 +5,7 @@
     (click)="onNavigate('dashboard-client')"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
   >
-    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    <svg [lucideIcon]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
     Volver al inicio
   </button>
 
@@ -39,9 +39,9 @@
             <!-- Icono Condicional Moderno -->
             <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#009688]/10">
               @if (isDog(mascota)) {
-                <lucide-icon [img]="Dog" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+                <svg [lucideIcon]="Dog" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></svg>
               } @else {
-                <lucide-icon [img]="Cat" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+                <svg [lucideIcon]="Cat" class="h-5 w-5 text-[#009688]" [strokeWidth]="1.5"></svg>
               }
             </div>
           </div>

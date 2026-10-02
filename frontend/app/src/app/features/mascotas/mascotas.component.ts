@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
-import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, Plus, ArrowLeft, Dog, Cat } from 'lucide-angular';
+import { LucideDynamicIcon, provideLucideIcons, LucidePlus as Plus, LucideArrowLeft as ArrowLeft, LucideDog as Dog, LucideCat as Cat } from '@lucide/angular';
 import { Router } from '@angular/router';
 import { Mascota } from '../../core/models/pet-user.model';
 import { PetUserService } from '../../core/services/pet-user.service';
@@ -12,14 +12,10 @@ import { PetUserService } from '../../core/services/pet-user.service';
   standalone: true,
   imports: [
     CommonModule,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    {
-      provide: LUCIDE_ICONS,
-      multi: true,
-      useValue: new LucideIconProvider({ Plus, ArrowLeft, Dog, Cat })
-    }
+    provideLucideIcons(Plus, ArrowLeft, Dog, Cat)
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mascotas.component.html',

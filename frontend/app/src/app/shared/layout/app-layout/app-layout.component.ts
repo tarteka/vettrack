@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { AuthService } from '../../../core/services/auth.service';
 import { Subscription, filter } from 'rxjs';
 
@@ -30,7 +30,7 @@ type Viewport = 'mobile' | 'tablet' | 'desktop';
 @Component({
   selector: 'app-app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, LucideAngularModule],
+  imports: [CommonModule, RouterModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app-layout.component.html'
 })

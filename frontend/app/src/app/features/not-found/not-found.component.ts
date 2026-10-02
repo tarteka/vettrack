@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RouterModule, LucideAngularModule],
+  imports: [RouterModule, LucideDynamicIcon],
 })
 export class NotFoundComponent {
   constructor(private location: Location) {}

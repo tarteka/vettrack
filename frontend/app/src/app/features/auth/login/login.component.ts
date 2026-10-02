@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -14,7 +14,7 @@ import {AlertService} from '../../../core/services/alert.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, LucideAngularModule],
+  imports: [ReactiveFormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './login.component.html'
 })

@@ -6,7 +6,7 @@
     class="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900"
     (click)="go('clientes')"
     >
-    <lucide-icon name="arrow-left" class="h-4 w-4"></lucide-icon>
+    <svg lucideIcon="arrow-left" class="h-4 w-4"></svg>
     Volver a Clientes
   </button>
 
@@ -25,7 +25,7 @@
       <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div class="px-4 pt-4">
           <h3 class="mb-2 inline-flex items-center gap-2 text-base font-semibold text-teal-900">
-            <lucide-icon name="user" class="h-[18px] w-[18px]"></lucide-icon>
+            <svg lucideIcon="user" class="h-[18px] w-[18px]"></svg>
             Datos personales
           </h3>
         </div>
@@ -48,7 +48,7 @@
               <div>
                 <p class="text-sm text-gray-500">Teléfono</p>
                 <div class="mt-1 flex items-center gap-2 text-gray-900">
-                  <lucide-icon name="phone" class="h-4 w-4 text-teal-600"></lucide-icon>
+                  <svg lucideIcon="phone" class="h-4 w-4 text-teal-600"></svg>
                   <span class="text-sm font-medium">{{ cliente.telefono }}</span>
                 </div>
               </div>
@@ -56,7 +56,7 @@
               <div>
                 <p class="text-sm text-gray-500">Email</p>
                 <div class="mt-1 flex items-center gap-2 text-gray-900">
-                  <lucide-icon name="mail" class="h-4 w-4 text-teal-600"></lucide-icon>
+                  <svg lucideIcon="mail" class="h-4 w-4 text-teal-600"></svg>
                   <span class="text-sm font-medium">{{ cliente.email }}</span>
                 </div>
               </div>
@@ -67,7 +67,7 @@
               <div>
                 <p class="text-sm text-gray-500">Dirección</p>
                 <div class="mt-1 flex items-start gap-2 text-gray-900">
-                  <lucide-icon name="map-pin" class="mt-0.5 h-4 w-4 text-teal-600"></lucide-icon>
+                  <svg lucideIcon="map-pin" class="mt-0.5 h-4 w-4 text-teal-600"></svg>
                   <span class="text-sm font-medium">{{ cliente.direccion }}</span>
                 </div>
               </div>
@@ -96,7 +96,7 @@
       <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div class="px-4 pt-4">
           <h3 class="mb-2 inline-flex items-center gap-2 text-base font-semibold text-teal-900">
-            <lucide-icon name="paw-print" class="h-[18px] w-[18px]"></lucide-icon>
+            <svg lucideIcon="paw-print" class="h-[18px] w-[18px]"></svg>
             Mascotas ({{ mascotas.length }})
           </h3>
         </div>
@@ -113,16 +113,16 @@
                   <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center">
                     <div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal-600/10">
                       @if ((mascota.especie || '').toLowerCase() === 'perro') {
-                        <lucide-icon
-                          name="dog"
+                        <svg
+                          lucideIcon="dog"
                           class="h-8 w-8 text-teal-600"
-                        ></lucide-icon>
+                        ></svg>
                       }
                       @if ((mascota.especie || '').toLowerCase() !== 'perro') {
-                        <lucide-icon
-                          name="cat"
+                        <svg
+                          lucideIcon="cat"
                           class="h-8 w-8 text-teal-600"
-                        ></lucide-icon>
+                        ></svg>
                       }
                     </div>
                   </div>
@@ -190,7 +190,7 @@
               class="inline-flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
               (click)="go('calendario')"
               >
-              <lucide-icon name="calendar-plus" class="h-4 w-4"></lucide-icon>
+              <svg lucideIcon="calendar-plus" class="h-4 w-4"></svg>
               Nueva cita
             </button>
 
@@ -199,7 +199,7 @@
               class="inline-flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
               (click)="go('crear-factura')"
               >
-              <lucide-icon name="receipt" class="h-4 w-4"></lucide-icon>
+              <svg lucideIcon="receipt" class="h-4 w-4"></svg>
               Nueva factura
             </button>
 
@@ -208,7 +208,7 @@
               class="inline-flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
               (click)="go('pacientes')"
               >
-              <lucide-icon name="paw-print" class="h-4 w-4"></lucide-icon>
+              <svg lucideIcon="paw-print" class="h-4 w-4"></svg>
               Añadir mascota
             </button>
 

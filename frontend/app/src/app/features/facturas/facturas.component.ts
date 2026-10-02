@@ -2,20 +2,20 @@
 import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule } from 'lucide-angular';
 import {
-  Search,
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
-  FileText,
-  X,
-  Download,
-  CheckCircle,
-  Ban,
-  Mail
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideSearch as Search,
+  LucidePlus as Plus,
+  LucideEdit as Edit,
+  LucideTrash2 as Trash2,
+  LucideEye as Eye,
+  LucideFileText as FileText,
+  LucideX as X,
+  LucideDownload as Download,
+  LucideCheckCircle as CheckCircle,
+  LucideBan as Ban,
+  LucideMail as Mail
+} from '@lucide/angular';
 import { InvoiceApi, InvoiceService } from '../../core/services/invoice.service';
 import { AlertService } from '../../core/services/alert.service';
 import Swal from 'sweetalert2';
@@ -40,7 +40,7 @@ interface Factura {
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './facturas.component.html',
 })

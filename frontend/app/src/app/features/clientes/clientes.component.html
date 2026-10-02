@@ -12,7 +12,7 @@
       class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
       (click)="openDialog()"
       >
-      <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+      <svg lucideIcon="plus" class="h-4 w-4"></svg>
       Nuevo propietario
     </button>
   </div>
@@ -25,7 +25,7 @@
 
         <!-- BUSCADOR -->
         <div class="relative w-full md:max-w-md">
-          <lucide-icon name="search" class="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></lucide-icon>
+          <svg lucideIcon="search" class="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></svg>
           <input
             type="text"
             [(ngModel)]="searchTerm"
@@ -77,7 +77,7 @@
                   <td class="px-3 py-2 text-sm">
                     <div class="flex items-center gap-2.5">
                       <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-teal-600/10">
-                        <lucide-icon name="file-text" class="h-4 w-4 text-teal-600"></lucide-icon>
+                        <svg lucideIcon="file-text" class="h-4 w-4 text-teal-600"></svg>
                       </div>
                       <div class="min-w-0">
                         <p class="m-0 text-sm font-medium text-gray-900">{{ cliente.nombre }} {{cliente.apellido }}</p>
@@ -95,18 +95,18 @@
                   <!-- Contacto -->
                   <td class="hidden px-3 py-2 text-sm text-gray-600 lg:table-cell">
                     <div class="flex items-center gap-1.5">
-                      <lucide-icon name="mail" class="h-3.5 w-3.5 text-gray-500"></lucide-icon>
+                      <svg lucideIcon="mail" class="h-3.5 w-3.5 text-gray-500"></svg>
                       <span class="truncate">{{ cliente.email }}</span>
                     </div>
                     <div class="mt-1 flex items-center gap-1.5">
-                      <lucide-icon name="phone" class="h-3.5 w-3.5 text-gray-500"></lucide-icon>
+                      <svg lucideIcon="phone" class="h-3.5 w-3.5 text-gray-500"></svg>
                       <span class="truncate">{{ cliente.telefono }}</span>
                     </div>
                   </td>
                   <!-- Dirección -->
                   <td class="hidden px-3 py-2 text-sm text-gray-600 2xl:table-cell">
                     <div class="flex items-center gap-1.5">
-                      <lucide-icon name="map-pin" class="h-3.5 w-3.5 text-gray-500"></lucide-icon>
+                      <svg lucideIcon="map-pin" class="h-3.5 w-3.5 text-gray-500"></svg>
                       <span>{{ cliente.direccion }}</span>
                     </div>
                     <div class="mt-1 text-gray-500">
@@ -127,7 +127,7 @@
                         (click)="viewCliente(cliente)"
                         title="Ver ficha"
                         >
-                        <lucide-icon name="eye" class="h-4 w-4"></lucide-icon>
+                        <svg lucideIcon="eye" class="h-4 w-4"></svg>
                       </button>
                       <!-- Editar -->
                       <button
@@ -136,7 +136,7 @@
                         (click)="openDialog(cliente)"
                         title="Editar"
                         >
-                        <lucide-icon name="pencil" class="h-4 w-4"></lucide-icon>
+                        <svg lucideIcon="pencil" class="h-4 w-4"></svg>
                       </button>
                     </div>
                   </td>

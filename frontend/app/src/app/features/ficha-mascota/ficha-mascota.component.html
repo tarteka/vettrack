@@ -5,7 +5,7 @@
     (click)="onNavigateBack()"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
     >
-    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    <svg [lucideIcon]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
     Volver a mascotas
   </button>
 
@@ -17,9 +17,9 @@
           <!-- Avatar dinámico -->
           <div class="hidden sm:flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[#009688]/10">
             @if (isDog()) {
-              <lucide-icon [img]="Dog" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+              <svg [lucideIcon]="Dog" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></svg>
             } @else {
-              <lucide-icon [img]="Cat" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+              <svg [lucideIcon]="Cat" class="h-16 w-16 text-[#009688]" [strokeWidth]="1.5"></svg>
             }
           </div>
 
@@ -64,15 +64,15 @@
             <h3 class="mb-3 text-base font-semibold text-[#004D40]">Propietario</h3>
             <div class="space-y-3">
               <div class="flex items-center gap-2 text-[#212121]">
-                <lucide-icon [img]="User" class="h-4 w-4 text-slate-400"></lucide-icon>
+                <svg [lucideIcon]="User" class="h-4 w-4 text-slate-400"></svg>
                 {{ m.client.fullName }}
               </div>
               <div class="flex items-center gap-2 text-[#212121]">
-                <lucide-icon [img]="Phone" class="h-4 w-4 text-slate-400"></lucide-icon>
+                <svg [lucideIcon]="Phone" class="h-4 w-4 text-slate-400"></svg>
                 {{ m.client.phone }}
               </div>
               <div class="flex items-center gap-2 text-[#212121]">
-                <lucide-icon [img]="Mail" class="h-4 w-4 text-slate-400"></lucide-icon>
+                <svg [lucideIcon]="Mail" class="h-4 w-4 text-slate-400"></svg>
                 {{ m.client.email }}
               </div>
             </div>
@@ -114,7 +114,7 @@
                 <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
                   <div class="flex items-center gap-3 mb-3">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
-                      <lucide-icon [img]="FileText" class="h-6 w-6 text-[#009688]"></lucide-icon>
+                      <svg [lucideIcon]="FileText" class="h-6 w-6 text-[#009688]"></svg>
                     </div>
                     <div>
                       <p class="font-medium">{{ entrada.type }}</p>
@@ -163,7 +163,7 @@
                   <div class="rounded-xl border border-slate-200 bg-white p-6">
                     <div class="flex items-start gap-3 mb-3">
                       <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                        <lucide-icon [img]="Pill" class="h-5 w-5 text-blue-600"></lucide-icon>
+                        <svg [lucideIcon]="Pill" class="h-5 w-5 text-blue-600"></svg>
                       </div>
                       <div class="flex-1">
                         <p class="font-medium">{{ t.medicamento }}</p>
@@ -187,7 +187,7 @@
                 <div class="rounded-xl border border-slate-200 bg-white p-6 flex items-center justify-between">
                   <div class="flex items-center gap-3">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
-                      <lucide-icon [img]="Calendar" class="h-6 w-6 text-[#009688]"></lucide-icon>
+                      <svg [lucideIcon]="Calendar" class="h-6 w-6 text-[#009688]"></svg>
                     </div>
                     <div>
                       <p class="font-medium">{{ cita.tipo }}</p>

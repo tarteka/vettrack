@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
-import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, FileText, Download, ArrowLeft } from 'lucide-angular';
+import { LucideDynamicIcon, provideLucideIcons, LucideFileText as FileText, LucideDownload as Download, LucideArrowLeft as ArrowLeft } from '@lucide/angular';
 import { InvoiceApi, InvoiceLineItem, InvoiceService } from '../../core/services/invoice.service';
 import { Router } from '@angular/router';
 
@@ -24,14 +24,10 @@ type Factura = {
   standalone: true,
   imports: [
     CommonModule,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    {
-      provide: LUCIDE_ICONS,
-      multi: true,
-      useValue: new LucideIconProvider({ FileText, Download, ArrowLeft })
-    }
+    provideLucideIcons(FileText, Download, ArrowLeft)
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mis-facturas.component.html',

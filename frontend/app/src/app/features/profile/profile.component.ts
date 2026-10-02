@@ -3,7 +3,7 @@ import { AuthService } from '../../core/services/auth.service';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { AlertService} from '../../core/services/alert.service';
 
 type UserRole = 'cliente' | 'veterinario' | 'veterinario-admin';
@@ -30,7 +30,7 @@ interface PasswordData {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterModule, FormsModule, LucideAngularModule],
+  imports: [RouterModule, FormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html'
 })

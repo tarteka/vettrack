@@ -2,7 +2,7 @@
 
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { ClientService, ClientDetail } from '../../core/services/client.service';
 
 interface Cliente {
@@ -33,7 +33,7 @@ interface Mascota {
 @Component({
   selector: 'app-ficha-cliente',
   standalone: true,
-  imports: [RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-clientes.component.html'
 })

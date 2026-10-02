@@ -10,7 +10,7 @@
   <div class="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
     <div class="mb-4 flex items-center justify-between">
       <h3 class="flex items-center gap-2 text-base font-semibold text-teal-900">
-        <lucide-icon name="paw-print" class="h-5 w-5 text-teal-600"></lucide-icon>
+        <svg lucideIcon="paw-print" class="h-5 w-5 text-teal-600"></svg>
         Mis Mascotas
       </h3>
 
@@ -31,22 +31,22 @@
           <div class="hidden mx-auto mb-2 sm:flex h-12 w-12 items-center justify-center rounded-full bg-teal-600/10">
             <!-- Icono según especie (sin emojis) -->
             @if (mascota.especie === 'Perro') {
-              <lucide-icon
+              <svg
                 name="dog"
                 class="h-6 w-6 text-teal-700"
-              ></lucide-icon>
+              ></svg>
             }
             @if (mascota.especie === 'Gato') {
-              <lucide-icon
+              <svg
                 name="cat"
                 class="h-6 w-6 text-teal-700"
-              ></lucide-icon>
+              ></svg>
             }
             @if (mascota.especie !== 'Perro' && mascota.especie !== 'Gato') {
-              <lucide-icon
+              <svg
                 name="paw-print"
                 class="h-6 w-6 text-teal-700"
-              ></lucide-icon>
+              ></svg>
             }
           </div>
           <h4 class="text-sm font-semibold text-gray-900">{{ mascota.nombre }}</h4>
@@ -63,7 +63,7 @@
     <div class="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="flex items-center gap-2 text-base font-semibold text-teal-900">
-          <lucide-icon name="calendar-days" class="h-5 w-5 text-teal-600"></lucide-icon>
+          <svg lucideIcon="calendar-days" class="h-5 w-5 text-teal-600"></svg>
           Próximas Citas
         </h3>
       </div>
@@ -81,11 +81,11 @@
             </div>
             <div class="flex items-center justify-between text-sm text-gray-500">
               <span class="inline-flex items-center gap-1.5">
-                <lucide-icon name="calendar" class="h-4 w-4"></lucide-icon>
+                <svg lucideIcon="calendar" class="h-4 w-4"></svg>
                 {{ cita.fecha }}
               </span>
               <span class="inline-flex items-center gap-1.5">
-                <lucide-icon name="clock" class="h-4 w-4"></lucide-icon>
+                <svg lucideIcon="clock" class="h-4 w-4"></svg>
                 {{ cita.hora }}
               </span>
             </div>
@@ -98,7 +98,7 @@
     <div class="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="flex items-center gap-2 text-base font-semibold text-teal-900">
-          <lucide-icon name="receipt" class="h-5 w-5 text-teal-600"></lucide-icon>
+          <svg lucideIcon="receipt" class="h-5 w-5 text-teal-600"></svg>
           Facturas
         </h3>
 
@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center justify-between text-sm text-gray-500">
               <span class="inline-flex items-center gap-1.5">
-                <lucide-icon name="calendar" class="h-4 w-4"></lucide-icon>
+                <svg lucideIcon="calendar" class="h-4 w-4"></svg>
                 {{ factura.fecha }}
               </span>
               <span class="font-semibold text-teal-700">
@@ -154,7 +154,7 @@
         class="inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500"
         (click)="navigate('mis-citas')"
         >
-        <lucide-icon name="calendar-plus" class="h-4 w-4"></lucide-icon>
+        <svg lucideIcon="calendar-plus" class="h-4 w-4"></svg>
         Solicitar cita
       </button>
     </div>

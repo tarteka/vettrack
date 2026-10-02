@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
-  LucideAngularModule,
-  ArrowLeft,
-  Calendar,
-  FileText,
-  Pill,
-  User,
-  Phone,
-  Mail,
-  Dog,
-  Cat
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideArrowLeft as ArrowLeft,
+  LucideCalendar as Calendar,
+  LucideFileText as FileText,
+  LucidePill as Pill,
+  LucideUser as User,
+  LucidePhone as Phone,
+  LucideMail as Mail,
+  LucideDog as Dog,
+  LucideCat as Cat
+} from '@lucide/angular';
 import { PetUserService } from '../../core/services/pet-user.service';
 import { Mascota } from '../../core/models/pet-user.model';
 import { MedicalRecordService, MedicalRecord } from '../../core/services/medical-record.service';
@@ -47,7 +47,7 @@ interface TratamientoItem {
   standalone: true,
   imports: [
     CommonModule,
-    LucideAngularModule
+    LucideDynamicIcon
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-mascota.component.html'

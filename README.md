@@ -13,6 +13,21 @@
 
 ---
 
+## 🚀 Demo en vivo
+
+**[vettrack.proyectozero.org](https://vettrack.proyectozero.org)**
+
+Cuentas de acceso de prueba (visibles también en la propia pantalla de login):
+
+| Rol | Email | Contraseña |
+|---|---|---|
+| Veterinario | `vet@vettrack.com` | `demo1234` |
+| Cliente | `cliente@vettrack.com` | `demo1234` |
+
+> La base de datos de la demo se restaura automáticamente cada 12 horas.
+
+---
+
 ## 📋 Descripción
 
 Sistema de gestión veterinaria desarrollado como Trabajo de Fin de Ciclo (TFC) para el ciclo superior de Desarrollo de Aplicaciones Web en BIRT. 
@@ -24,14 +39,14 @@ VetTrack permite la gestión integral de clínicas veterinarias, incluyendo cont
 ## 🛠️ Stack Tecnológico
 
 ### Backend
-- **PHP** (46.2%) - Lógica de negocio y API REST
-- **Twig** (1.4%) - Motor de plantillas
-- **MySQL/PostgreSQL** - Sistema de gestión de base de datos
+- **PHP 8.3** con **Symfony 7.4 LTS** - Lógica de negocio y API REST
+- **Twig** - Motor de plantillas (emails)
+- **MySQL 8** - Sistema de gestión de base de datos
 
 ### Frontend
-- **TypeScript** (25.9%) - Aplicación web interactiva
-- **HTML** (24.9%) - Estructura y maquetación
-- **SCSS** (1.1%) - Estilos y diseño responsivo
+- **Angular 22** - Aplicación web interactiva (standalone components, control flow nativo)
+- **TypeScript** - Lógica de la aplicación
+- **Tailwind CSS** - Estilos y diseño responsivo
 
 ### Infraestructura
 - **Docker** - Contenedorización de servicios (frontend y backend separados)

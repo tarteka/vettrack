@@ -5,7 +5,7 @@
     (click)="onNavigate('facturas-vet')"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
     >
-    <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+    <svg [lucideIcon]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
     Volver a facturas
   </button>
 
@@ -112,7 +112,7 @@
                   (click)="agregarServicio()"
                   class="inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
                   >
-                  <lucide-icon [img]="Plus" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                  <svg [lucideIcon]="Plus" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></svg>
                   Añadir
                 </button>
               </div>
@@ -151,7 +151,7 @@
                                 class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
                                 (click)="eliminarServicio(s.id)"
                                 >
-                                <lucide-icon [img]="Trash2" class="h-4 w-4 text-red-600" [strokeWidth]="1.5"></lucide-icon>
+                                <svg [lucideIcon]="Trash2" class="h-4 w-4 text-red-600" [strokeWidth]="1.5"></svg>
                               </button>
                             </td>
                           </tr>

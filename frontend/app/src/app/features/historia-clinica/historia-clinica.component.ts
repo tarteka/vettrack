@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, ArrowLeft, Save, Info, Plus, X } from 'lucide-angular';
+import { LucideDynamicIcon, provideLucideIcons, LucideArrowLeft as ArrowLeft, LucideSave as Save, LucideInfo as Info, LucidePlus as Plus, LucideX as X } from '@lucide/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../core/services/alert.service';
 import { MedicalRecordCreatePayload, MedicalRecordService } from '../../core/services/medical-record.service';
@@ -14,14 +14,10 @@ import { treatment } from '../../core/models/treatment.model';
   standalone: true,
   imports: [
     FormsModule,
-    LucideAngularModule
+    LucideDynamicIcon
 ],
   providers: [
-    {
-      provide: LUCIDE_ICONS,
-      multi: true,
-      useValue: new LucideIconProvider({ ArrowLeft, Save, Info, Plus, X })
-    }
+    provideLucideIcons(ArrowLeft, Save, Info, Plus, X)
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './historia-clinica.component.html'

@@ -10,7 +10,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventInput } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
-import { LucideAngularModule, ArrowLeft, Plus } from 'lucide-angular';
+import { LucideDynamicIcon, LucideArrowLeft as ArrowLeft, LucidePlus as Plus } from '@lucide/angular';
 import { AppointmentService } from '../../core/services/appointment.service';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user.model';
@@ -24,7 +24,7 @@ type ViewPort = 'mobile' | 'tablet' | 'desktop';
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [CommonModule, FormsModule, FullCalendarModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, FullCalendarModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './calendario.component.html',
 })

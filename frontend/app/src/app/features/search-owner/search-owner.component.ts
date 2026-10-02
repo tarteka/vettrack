@@ -11,8 +11,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule } from 'lucide-angular';
-import { Search } from 'lucide-angular';
+import { LucideDynamicIcon, LucideSearch as Search } from '@lucide/angular';
 
 export interface Owner {
   id: number;
@@ -24,7 +23,7 @@ export interface Owner {
 @Component({
   selector: 'app-search-owner',
   standalone: true,
-  imports: [FormsModule, LucideAngularModule],
+  imports: [FormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './search-owner.component.html',
 })

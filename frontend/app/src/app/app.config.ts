@@ -1,7 +1,7 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
-import { LucideAngularModule } from 'lucide-angular';
+import { provideLucideIcons } from '@lucide/angular';
 import { LUCIDE_ICONS } from './shared/icons/lucide-icons';
 
 import { routes} from './app.routes';
@@ -16,9 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withXhr(), 
       withInterceptors([authInterceptor])
     ),
-    importProvidersFrom(
-      LucideAngularModule.pick(LUCIDE_ICONS)
-    ),
+    provideLucideIcons(...Object.values(LUCIDE_ICONS)),
     { provide: LOCALE_ID, useValue: 'es-ES' }, provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'

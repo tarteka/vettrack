@@ -12,7 +12,7 @@
       class="inline-flex items-center gap-2 rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
       (click)="openDialog()"
       >
-      <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+      <svg lucideIcon="plus" class="h-4 w-4"></svg>
       Nuevo usuario
     </button>
   </div>
@@ -26,7 +26,7 @@
         <!-- BUSCADOR -->
         <div class="relative flex-1">
           <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-            <lucide-icon name="search" class="h-4 w-4"></lucide-icon>
+            <svg lucideIcon="search" class="h-4 w-4"></svg>
           </span>
 
           <input
@@ -78,15 +78,15 @@
                         @switch (usuario.role) {
                           <!-- admin -->
                           @case ('admin') {
-                            <lucide-icon name="shield" class="h-5 w-5 text-purple-800"></lucide-icon>
+                            <svg lucideIcon="shield" class="h-5 w-5 text-purple-800"></svg>
                           }
                           <!-- vet -->
                           @case ('vet') {
-                            <lucide-icon name="stethoscope" class="h-5 w-5 text-teal-600"></lucide-icon>
+                            <svg lucideIcon="stethoscope" class="h-5 w-5 text-teal-600"></svg>
                           }
                           <!-- default -->
                           @default {
-                            <lucide-icon name="user" class="h-5 w-5 text-blue-700"></lucide-icon>
+                            <svg lucideIcon="user" class="h-5 w-5 text-blue-700"></svg>
                           }
                         }
                       </div>
@@ -104,11 +104,11 @@
                   <td class="hidden lg:table-cell px-3 py-3 align-top">
                     <div class="flex flex-col gap-1">
                       <div class="flex items-center gap-2 text-gray-500">
-                        <lucide-icon name="mail" class="h-4 w-4"></lucide-icon>
+                        <svg lucideIcon="mail" class="h-4 w-4"></svg>
                         <span class="truncate text-sm">{{ usuario.email }}</span>
                       </div>
                       <div class="flex items-center gap-2 text-gray-500">
-                        <lucide-icon name="phone" class="h-4 w-4"></lucide-icon>
+                        <svg lucideIcon="phone" class="h-4 w-4"></svg>
                         <span class="truncate text-sm">{{ usuario.phone }}</span>
                       </div>
                     </div>
@@ -161,16 +161,16 @@
                     "
                         >
                         @if (!usuario.isActive) {
-                          <lucide-icon
-                            name="check-circle"
+                          <svg
+                            lucideIcon="check-circle"
                             color="#66BB6A"
-                          ></lucide-icon>
+                          ></svg>
                         }
                         @if (usuario.isActive) {
-                          <lucide-icon
-                            name="x-circle"
+                          <svg
+                            lucideIcon="x-circle"
                             color="#F54927"
-                          ></lucide-icon>
+                          ></svg>
                         }
                       </button>
                       <!-- Editar -->
@@ -188,7 +188,7 @@
                         : 'Editar'
                     "
                         >
-                        <lucide-icon name="pencil" class="h-4 w-4 text-gray-600"></lucide-icon>
+                        <svg lucideIcon="pencil" class="h-4 w-4 text-gray-600"></svg>
                       </button>
                     </div>
                   </td>
@@ -216,7 +216,7 @@
             <p class="m-0 text-sm text-gray-500">Total usuarios</p>
             <p class="m-0 mt-1 text-2xl font-semibold text-teal-900">{{ usuarios.length }}</p>
           </div>
-          <lucide-icon name="users" class="h-7 w-7 text-teal-600"></lucide-icon>
+          <svg lucideIcon="users" class="h-7 w-7 text-teal-600"></svg>
         </div>
       </div>
 
@@ -226,7 +226,7 @@
             <p class="m-0 text-sm text-gray-500">Veterinarios</p>
             <p class="m-0 mt-1 text-2xl font-semibold text-teal-900">{{ countVeterinarios }}</p>
           </div>
-          <lucide-icon name="stethoscope" class="h-7 w-7 text-teal-600"></lucide-icon>
+          <svg lucideIcon="stethoscope" class="h-7 w-7 text-teal-600"></svg>
         </div>
       </div>
 
@@ -236,7 +236,7 @@
             <p class="m-0 text-sm text-gray-500">Clientes</p>
             <p class="m-0 mt-1 text-2xl font-semibold text-teal-900">{{ countClientes }}</p>
           </div>
-          <lucide-icon name="user" class="h-7 w-7 text-blue-700"></lucide-icon>
+          <svg lucideIcon="user" class="h-7 w-7 text-blue-700"></svg>
         </div>
       </div>
 
@@ -246,7 +246,7 @@
             <p class="m-0 text-sm text-gray-500">Activos</p>
             <p class="m-0 mt-1 text-2xl font-semibold text-teal-900">{{ countActivos }}</p>
           </div>
-          <lucide-icon name="check-circle" class="h-7 w-7 text-green-600"></lucide-icon>
+          <svg lucideIcon="check-circle" class="h-7 w-7 text-green-600"></svg>
         </div>
       </div>
     </div>

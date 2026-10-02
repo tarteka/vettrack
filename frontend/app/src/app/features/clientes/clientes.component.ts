@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../core/services/client.service';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { AlertService } from '../../core/services/alert.service';
 
 export interface Cliente {
@@ -24,7 +24,7 @@ export interface Cliente {
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [RouterModule, FormsModule, LucideAngularModule],
+  imports: [RouterModule, FormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './clientes.component.html'
 })

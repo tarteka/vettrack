@@ -11,7 +11,7 @@
       (click)="navigateTo('crear-factura')"
       class="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white bg-[#009688] hover:bg-[#26A69A] transition-colors w-full md:w-auto"
       >
-      <lucide-icon [img]="icons.Plus" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></lucide-icon>
+      <svg [lucideIcon]="icons.Plus" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></svg>
       Nueva factura
     </button>
   </div>
@@ -31,11 +31,11 @@
         <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 w-full md:w-auto">
           <!-- Search -->
           <div class="relative flex-1 md:w-64">
-            <lucide-icon
-              [img]="icons.Search"
+            <svg
+              [lucideIcon]="icons.Search"
               class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
               [strokeWidth]="1.5"
-            ></lucide-icon>
+            ></svg>
             <input
               [(ngModel)]="searchTerm"
               placeholder="Buscar facturas..."
@@ -178,7 +178,7 @@
                         class="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100"
                         title="Ver"
                         >
-                        <lucide-icon [img]="icons.Eye" class="h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                        <svg [lucideIcon]="icons.Eye" class="h-4 w-4" [strokeWidth]="1.5"></svg>
                       </button>
                       @if (factura.estado !== 'pagada' && factura.estado !== 'cancelada') {
                         <button
@@ -187,7 +187,7 @@
                           class="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100"
                           title="Editar"
                           >
-                          <lucide-icon [img]="icons.Edit" class="h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                          <svg [lucideIcon]="icons.Edit" class="h-4 w-4" [strokeWidth]="1.5"></svg>
                         </button>
                       }
                       @if (factura.estado !== 'pagada' && factura.estado !== 'cancelada') {
@@ -197,7 +197,7 @@
                           class="inline-flex items-center justify-center rounded-md p-2 text-green-600 hover:bg-green-50 hover:text-green-700"
                           title="Pagar"
                           >
-                          <lucide-icon [img]="icons.CheckCircle" class="h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                          <svg [lucideIcon]="icons.CheckCircle" class="h-4 w-4" [strokeWidth]="1.5"></svg>
                         </button>
                       }
                       @if (factura.estado !== 'pagada' && factura.estado !== 'cancelada') {
@@ -207,7 +207,7 @@
                           class="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
                           title="Cancelar"
                           >
-                          <lucide-icon [img]="icons.Ban" class="h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                          <svg [lucideIcon]="icons.Ban" class="h-4 w-4" [strokeWidth]="1.5"></svg>
                         </button>
                       }
                     </div>
@@ -257,7 +257,7 @@
               class="rounded-md p-2 hover:bg-gray-100"
               aria-label="Cerrar"
               >
-              <lucide-icon [img]="icons.X" class="h-5 w-5" [strokeWidth]="1.5"></lucide-icon>
+              <svg [lucideIcon]="icons.X" class="h-5 w-5" [strokeWidth]="1.5"></svg>
             </button>
           </div>
           @if (facturaSeleccionada; as f) {
@@ -334,7 +334,7 @@
               class="rounded-md px-4 py-2 text-sm font-medium text-white bg-[#009688] hover:bg-[#26A69A] inline-flex items-center"
               (click)="facturaSeleccionada && downloadPdf(facturaSeleccionada)"
               >
-              <lucide-icon [img]="icons.Download" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></lucide-icon>
+              <svg [lucideIcon]="icons.Download" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></svg>
               Descargar PDF
             </button>
             <button
@@ -343,7 +343,7 @@
               (click)="facturaSeleccionada && handleEnviarEmail(facturaSeleccionada)"
               [disabled]="sendingEmail"
               >
-              <lucide-icon [img]="icons.Mail" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></lucide-icon>
+              <svg [lucideIcon]="icons.Mail" class="h-4 w-4 mr-2" [strokeWidth]="1.5"></svg>
               {{ sendingEmail ? 'Enviando...' : 'Enviar email' }}
             </button>
           </div>

@@ -1,7 +1,7 @@
 ﻿import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, Plus, Trash2, ArrowLeft } from 'lucide-angular';
+import { LucideDynamicIcon, provideLucideIcons, LucidePlus as Plus, LucideTrash2 as Trash2, LucideArrowLeft as ArrowLeft } from '@lucide/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SearchOwnerComponent, Owner } from '../search-owner/search-owner.component';
@@ -26,14 +26,10 @@ interface ServicioFactura {
     CommonModule,
     FormsModule,
     SearchOwnerComponent,
-    LucideAngularModule
+    LucideDynamicIcon
   ],
   providers: [
-    {
-      provide: LUCIDE_ICONS,
-      multi: true,
-      useValue: new LucideIconProvider({ Plus, Trash2, ArrowLeft })
-    }
+    provideLucideIcons(Plus, Trash2, ArrowLeft)
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './crear-factura.component.html'

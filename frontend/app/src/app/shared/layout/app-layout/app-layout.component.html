@@ -9,10 +9,10 @@
           class="rounded p-2 hover:bg-gray-100 xl:hidden"
           (click)="sidebarOverlay = !sidebarOverlay"
           >
-          <lucide-icon
-            [name]="sidebarOverlay ? 'x' : 'menu'"
+          <svg
+            [lucideIcon]="sidebarOverlay ? 'x' : 'menu'"
             class="h-5 w-5"
-          ></lucide-icon>
+          ></svg>
         </button>
 
         <!-- Brand -->
@@ -74,7 +74,7 @@
             'text-[#212121] hover:bg-gray-100': currentPage !== item.id
           }"
             >
-            <lucide-icon [name]="item.icon" class="h-5 w-5"></lucide-icon>
+            <svg [lucideIcon]="item.icon" class="h-5 w-5"></svg>
             @if (sidebarOverlay || sidebarExpanded || isDesktop) {
               <span class="truncate">
                 {{ item.label }}
@@ -88,7 +88,7 @@
           (click)="logout()"
           class="mt-8 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition-colors hover:bg-red-50 md:px-4 md:py-3 md:text-base"
           >
-          <lucide-icon name="log-out" class="h-5 w-5"></lucide-icon>
+          <svg lucideIcon="log-out" class="h-5 w-5"></svg>
 
           @if (sidebarOverlay || sidebarExpanded || isDesktop) {
             <span class="truncate">

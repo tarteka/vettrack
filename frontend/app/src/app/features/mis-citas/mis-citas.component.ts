@@ -3,18 +3,17 @@ import { Component, EventEmitter, Output, OnInit, inject, signal, ChangeDetectio
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  LucideAngularModule,
-  LucideIconProvider,
-  LUCIDE_ICONS,
-  Calendar,
-  Plus,
-  Clock,
-  ArrowLeft,
-  CheckCircle,
-  Info,
-  Phone,
-  X
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  provideLucideIcons,
+  LucideCalendar as Calendar,
+  LucidePlus as Plus,
+  LucideClock as Clock,
+  LucideArrowLeft as ArrowLeft,
+  LucideCheckCircle as CheckCircle,
+  LucideInfo as Info,
+  LucidePhone as Phone,
+  LucideX as X
+} from '@lucide/angular';
 import { AppointmentService } from '../../core/services/appointment.service';
 import { Appointment } from '../../core/models/appointment.model';
 import { Mascota } from '../../core/models/pet-user.model';
@@ -31,23 +30,10 @@ type TabKey = 'proximas' | 'pasadas';
   imports: [
     CommonModule,
     FormsModule,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    {
-      provide: LUCIDE_ICONS,
-      multi: true,
-      useValue: new LucideIconProvider({
-        Calendar,
-        Plus,
-        Clock,
-        ArrowLeft,
-        CheckCircle,
-        Info,
-        Phone,
-        X
-      })
-    }
+    provideLucideIcons(Calendar, Plus, Clock, ArrowLeft, CheckCircle, Info, Phone, X)
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mis-citas.component.html',

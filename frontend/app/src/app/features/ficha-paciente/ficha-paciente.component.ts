@@ -4,7 +4,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { MedicalRecord, MedicalRecordCreatePayload, MedicalRecordService } from '../../core/services/medical-record.service';
 import { PetService } from '../../core/services/pet.service';
 import { TreatmentService } from '../../core/services/treatment.service';
@@ -92,7 +92,7 @@ interface MascotaForm {
 @Component({
   selector: 'app-ficha-paciente',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, LucideDynamicIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-paciente.component.html'
 })

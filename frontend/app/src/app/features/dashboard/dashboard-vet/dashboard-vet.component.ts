@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { DashboardService } from '../../../core/services/dashboard.service';
 import { AppointmentService} from '../../../core/services/appointment.service';
 import { AlertService} from '../../../core/services/alert.service';
@@ -28,7 +28,7 @@ interface Notificacion {
   templateUrl: './dashboard-vet.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [CommonModule, LucideAngularModule]
+  imports: [CommonModule, LucideDynamicIcon]
 })
 export class DashboardVetComponent implements OnInit {
   constructor(
