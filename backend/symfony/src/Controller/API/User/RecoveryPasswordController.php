@@ -23,7 +23,8 @@ class RecoveryPasswordController extends AbstractController
         private readonly UserRepository $userRepository,
         private readonly ClinicSettingsRepository $clinicSettingsRepository,
         private readonly ?RateLimiterFactory $recoveryPasswordLimiter = null,
-        private readonly string $frontendUrl
+        private readonly string $frontendUrl,
+        private readonly array $demoProtectedEmails = [],
     ){}
 
     /**
@@ -61,7 +62,7 @@ class RecoveryPasswordController extends AbstractController
         $email = $request->get('email');
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
-        if ($user instanceof User)
+        if ($user instanceof User && !in_array($user->getEmail(), array_filter($this->demoProtectedEmails), true))
         {
             $plainPassword = bin2hex(random_bytes(8));
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);

@@ -26,6 +26,7 @@ class ProfileController extends AbstractController
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly ApiJsonResponse $apiJsonResponse,
         private readonly ProfileMapper $profileMapper,
+        private readonly array $demoProtectedEmails = [],
     ) {}
 
     #[Route('', name: 'show', methods: ['GET'])]
@@ -42,6 +43,10 @@ class ProfileController extends AbstractController
         #[CurrentUser] User $user,
     ): JsonResponse
     {
+        if (in_array($user->getEmail(), array_filter($this->demoProtectedEmails), true)) {
+            $dto->email = $user->getEmail();
+        }
+
         $user = $this->profileMapper->fromUpdateDto($user, $dto);
         $this->entityManager->flush();
 
@@ -56,6 +61,12 @@ class ProfileController extends AbstractController
         #[CurrentUser] User $user
     ): JsonResponse
     {
+        if (in_array($user->getEmail(), array_filter($this->demoProtectedEmails), true)) {
+            return ApiJsonResponse::error(
+                message: 'Esta es una cuenta de demostración, no se puede cambiar su contraseña.',
+            );
+        }
+
         if (!$this->passwordHasher->isPasswordValid($user, $dto->currentPassword)) {
             return ApiJsonResponse::error(
                 message: 'La contraseña actual es incorrecta',

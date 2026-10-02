@@ -36,7 +36,8 @@ class AdminUserController extends AbstractController
         private readonly ApiJsonResponse $apiJsonResponse,
         private readonly UserAdminMapper $userAdminMapper,
         private readonly ClinicSettingsRepository $clinicSettingsRepository,
-        private readonly string $frontendUrl
+        private readonly string $frontendUrl,
+        private readonly array $demoProtectedEmails = [],
     )
     {
     }
@@ -136,6 +137,10 @@ class AdminUserController extends AbstractController
     {
         if (!$user) {
             return ApiJsonResponse::notFound('User not found');
+        }
+
+        if (in_array($user->getEmail(), array_filter($this->demoProtectedEmails), true)) {
+            $dto->email = $user->getEmail();
         }
 
         $user = $this->userAdminMapper->fromUpdateDto($user, $dto);
