@@ -4,7 +4,7 @@
     type="button"
     (click)="onNavigate('dashboard-client')"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-  >
+    >
     <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
     Volver al inicio
   </button>
@@ -28,7 +28,7 @@
             [ngClass]="filterEstado === 'todas'
               ? 'bg-[#009688] text-white border-[#009688]'
               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'"
-          >
+            >
             Todas
           </button>
 
@@ -39,7 +39,7 @@
             [ngClass]="filterEstado === 'pendiente'
               ? 'bg-red-600 text-white border-red-600'
               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'"
-          >
+            >
             Pendientes
           </button>
 
@@ -50,7 +50,7 @@
             [ngClass]="filterEstado === 'atrasada'
               ? 'bg-amber-500 text-white border-amber-500'
               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'"
-          >
+            >
             Atrasadas
           </button>
 
@@ -61,7 +61,7 @@
             [ngClass]="filterEstado === 'pagada'
               ? 'bg-green-600 text-white border-green-600'
               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'"
-          >
+            >
             Pagadas
           </button>
 
@@ -72,7 +72,7 @@
             [ngClass]="filterEstado === 'cancelada'
               ? 'bg-gray-500 text-white border-gray-500'
               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'"
-          >
+            >
             Canceladas
           </button>
         </div>
@@ -81,84 +81,85 @@
 
     <div class="p-6">
       <div class="space-y-4">
-        <div
-          *ngFor="let factura of filteredFacturas"
-          class="rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-        >
-          <div class="p-6 pt-6">
-            <div class="mb-4 flex items-start justify-between gap-4">
-              <div class="flex items-center gap-4">
-                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
-                  <lucide-icon [img]="FileText" class="h-6 w-6 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+        @for (factura of filteredFacturas; track factura) {
+          <div
+            class="rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+            >
+            <div class="p-6 pt-6">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#009688]/10">
+                    <lucide-icon [img]="FileText" class="h-6 w-6 text-[#009688]" [strokeWidth]="1.5"></lucide-icon>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-[#212121] md:text-base">{{ factura.concepto }}</h3>
+                    <p class="text-sm text-slate-600">Nº {{ factura.numero }}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-sm font-semibold text-[#212121] md:text-base">{{ factura.concepto }}</h3>
-                  <p class="text-sm text-slate-600">Nº {{ factura.numero }}</p>
-                </div>
-              </div>
-
-              <span
-                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                [ngClass]="badgeEstadoClasses(factura.estado)"
-              >
-                {{ estadoLabel(factura.estado) }}
-              </span>
-            </div>
-
-            <div class="mb-4 space-y-2">
-              <p class="text-sm text-slate-600">Servicios:</p>
-              <div class="flex flex-wrap gap-2">
                 <span
-                  *ngFor="let servicio of factura.servicios; let i = index"
-                  class="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700"
-                >
-                  {{ servicio }}
+                  class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+                  [ngClass]="badgeEstadoClasses(factura.estado)"
+                  >
+                  {{ estadoLabel(factura.estado) }}
                 </span>
               </div>
-            </div>
-
-            <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-slate-50 p-4 md:grid-cols-4">
-              <div>
-                <p class="text-xs text-slate-600">Fecha</p>
-                <p class="text-sm text-[#212121]">{{ factura.fecha }}</p>
+              <div class="mb-4 space-y-2">
+                <p class="text-sm text-slate-600">Servicios:</p>
+                <div class="flex flex-wrap gap-2">
+                  @for (servicio of factura.servicios; track servicio; let i = $index) {
+                    <span
+                      class="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700"
+                      >
+                      {{ servicio }}
+                    </span>
+                  }
+                </div>
               </div>
-              <div>
-                <p class="text-xs text-slate-600">Subtotal</p>
-                <p class="text-sm text-[#212121]">{{ factura.subtotal.toFixed(2) | number:'1.2-2' }} €</p>
+              <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-slate-50 p-4 md:grid-cols-4">
+                <div>
+                  <p class="text-xs text-slate-600">Fecha</p>
+                  <p class="text-sm text-[#212121]">{{ factura.fecha }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-600">Subtotal</p>
+                  <p class="text-sm text-[#212121]">{{ factura.subtotal.toFixed(2) | number:'1.2-2' }} €</p>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-600">IVA</p>
+                  <p class="text-sm text-[#212121]">{{ factura.iva.toFixed(2) | number:'1.2-2' }} €</p>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-600">Total</p>
+                  <p class="text-sm text-[#009688]">{{ factura.total.toFixed(2) | number:'1.2-2' }} €</p>
+                </div>
               </div>
-              <div>
-                <p class="text-xs text-slate-600">IVA</p>
-                <p class="text-sm text-[#212121]">{{ factura.iva.toFixed(2) | number:'1.2-2' }} €</p>
-              </div>
-              <div>
-                <p class="text-xs text-slate-600">Total</p>
-                <p class="text-sm text-[#009688]">{{ factura.total.toFixed(2) | number:'1.2-2' }} €</p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between gap-3 border-t border-slate-200 pt-4">
-              <p *ngIf="factura.metodoPago" class="text-sm text-slate-600">
-                Método de pago: <span class="text-[#212121]">{{ factura.metodoPago }}</span>
-              </p>
-
-              <div class="ml-auto flex gap-2">
-                <button
-                  type="button"
-                  (click)="downloadPdf(factura)"
-                  class="inline-flex items-center rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                >
-                  <lucide-icon [img]="Download" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
-                  Descargar PDF
-                </button>
+              <div class="flex items-center justify-between gap-3 border-t border-slate-200 pt-4">
+                @if (factura.metodoPago) {
+                  <p class="text-sm text-slate-600">
+                    Método de pago: <span class="text-[#212121]">{{ factura.metodoPago }}</span>
+                  </p>
+                }
+                <div class="ml-auto flex gap-2">
+                  <button
+                    type="button"
+                    (click)="downloadPdf(factura)"
+                    class="inline-flex items-center rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                    >
+                    <lucide-icon [img]="Download" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                    Descargar PDF
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        }
       </div>
 
-      <div *ngIf="filteredFacturas.length === 0" class="py-12 text-center text-slate-500">
-        No hay facturas con el estado seleccionado
-      </div>
+      @if (filteredFacturas.length === 0) {
+        <div class="py-12 text-center text-slate-500">
+          No hay facturas con el estado seleccionado
+        </div>
+      }
     </div>
   </div>
 

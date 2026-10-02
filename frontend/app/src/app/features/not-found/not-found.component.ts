@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 
@@ -7,7 +7,7 @@ import { LucideAngularModule } from 'lucide-angular';
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   standalone: true,
-  imports: [CommonModule, RouterModule, LucideAngularModule],
+  imports: [RouterModule, LucideAngularModule],
 })
 export class NotFoundComponent {
   constructor(private location: Location) {}

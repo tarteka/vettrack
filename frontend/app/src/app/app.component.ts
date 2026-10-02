@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { InactivityService } from './core/services/inactive.service';
 import { AuthService } from './core/services/auth.service';
 import { AlertService } from './core/services/alert.service';
@@ -8,7 +8,7 @@ import { AlertService } from './core/services/alert.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {

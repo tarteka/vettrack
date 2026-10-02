@@ -4,7 +4,7 @@
     type="button"
     (click)="onNavigate('dashboard-client')"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-  >
+    >
     <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
     Volver al inicio
   </button>
@@ -20,7 +20,7 @@
       type="button"
       (click)="openDialog()"
       class="inline-flex items-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
-    >
+      >
       <lucide-icon [img]="Plus" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
       Solicitar nueva cita
     </button>
@@ -36,7 +36,7 @@
       [class.text-[#009688]]="activeTab() === 'proximas'"
       [class.border-transparent]="activeTab() !== 'proximas'"
       [class.text-slate-600]="activeTab() !== 'proximas'"
-    >
+      >
       Próximas citas ({{ proximasCitas().length }})
     </button>
 
@@ -48,7 +48,7 @@
       [class.text-[#009688]]="activeTab() === 'pasadas'"
       [class.border-transparent]="activeTab() !== 'pasadas'"
       [class.text-slate-600]="activeTab() !== 'pasadas'"
-    >
+      >
       Historial ({{ citasPasadas().length }})
     </button>
   </div>
@@ -73,7 +73,7 @@
               <span
                 class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
                 [ngClass]="cita.appointmentStatus === 'confirmada' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'"
-              >
+                >
                 {{ cita.appointmentStatus === 'confirmada' ? 'Confirmada' : 'Pendiente' }}
               </span>
             </div>
@@ -120,14 +120,14 @@
 
                 } @else {
                   <span class="text-xs text-slate-400 italic self-center">
-                  Cita confirmada (No editable)
+                    Cita confirmada (No editable)
                   </span>
                 }
               </div>
             </div>
           </div>
         </div>
-      } @empty {
+        } @empty {
         <div class="py-12 text-center text-slate-500">No tienes citas próximas programadas.</div>
       }
     </div>
@@ -150,18 +150,18 @@
                 </div>
               </div>
 
-                <!-- Badge de estado dinámico en Historial -->
-                <span
-                    class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium border"
-                    [class.bg-green-50]="cita.appointmentStatus === 'completada'"
-                    [class.text-green-700]="cita.appointmentStatus === 'completada'"
-                    [class.border-green-200]="cita.appointmentStatus === 'completada'"
-                    [class.bg-red-50]="cita.appointmentStatus === 'cancelada'"
-                    [class.text-red-700]="cita.appointmentStatus === 'cancelada'"
-                    [class.border-red-200]="cita.appointmentStatus === 'cancelada'"
-                    >
-                    {{ cita.appointmentStatus === 'completada' ? 'Completada' : 'Cancelada' }}
-                </span>
+              <!-- Badge de estado dinámico en Historial -->
+              <span
+                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium border"
+                [class.bg-green-50]="cita.appointmentStatus === 'completada'"
+                [class.text-green-700]="cita.appointmentStatus === 'completada'"
+                [class.border-green-200]="cita.appointmentStatus === 'completada'"
+                [class.bg-red-50]="cita.appointmentStatus === 'cancelada'"
+                [class.text-red-700]="cita.appointmentStatus === 'cancelada'"
+                [class.border-red-200]="cita.appointmentStatus === 'cancelada'"
+                >
+                {{ cita.appointmentStatus === 'completada' ? 'Completada' : 'Cancelada' }}
+              </span>
 
             </div>
 
@@ -178,7 +178,7 @@
             </div>
           </div>
         </div>
-      } @empty {
+        } @empty {
         <div class="py-12 text-center text-slate-500">No hay citas en tu historial médico.</div>
       }
     </div>
@@ -202,145 +202,136 @@
   </div>
 
   <!-- Modal Solicitar cita -->
-  <div
-    *ngIf="dialogOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center"
-    (click)="closeDialog()"
-  >
-    <div class="absolute inset-0 bg-black/40"></div>
-
+  @if (dialogOpen) {
     <div
-      class="relative mx-4 w-full max-w-md rounded-xl border border-slate-200 bg-white shadow-xl"
-      (click)="$event.stopPropagation()"
-    >
-      <div class="flex items-start justify-between border-b border-slate-200 p-6">
-        <div>
+      class="fixed inset-0 z-50 flex items-center justify-center"
+      (click)="closeDialog()"
+      >
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div
+        class="relative mx-4 w-full max-w-md rounded-xl border border-slate-200 bg-white shadow-xl"
+        (click)="$event.stopPropagation()"
+        >
+        <div class="flex items-start justify-between border-b border-slate-200 p-6">
+          <div>
             <h3 class="text-base font-semibold text-[#004D40]">
-                {{ editingAppointment() ? 'Modificar Cita' : 'Solicitar Nueva Cita' }}
+              {{ editingAppointment() ? 'Modificar Cita' : 'Solicitar Nueva Cita' }}
             </h3>
-
             <p class="mt-1 text-sm text-slate-600">
-                Solicita una cita para tu mascota. Nuestro equipo confirmará la disponibilidad.
+              Solicita una cita para tu mascota. Nuestro equipo confirmará la disponibilidad.
             </p>
-        </div>
-
-        <button
-          type="button"
-          class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
-          (click)="closeDialog()"
-        >
-          <lucide-icon [img]="X" class="h-4 w-4 text-slate-600" [strokeWidth]="1.5"></lucide-icon>
-        </button>
-      </div>
-
-      <form class="space-y-4 p-6" (ngSubmit)="handleSolicitar()">
-        <!-- Mascota -->
-        <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Mascota*</label>
-          <select
-            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-            [(ngModel)]="solicitudForm.petId"
-            name="petId"
-            required
-            >
-                <option [ngValue]="null" disabled>Seleccionar mascota</option>
-                @for (m of misMascotas(); track m.id) {
-                <option [ngValue]="m.id">{{ m.name }}</option>
-                }
-            </select>
-        </div>
-
-
-        <!-- Tipo de consulta (Selector estático) -->
-        <div class="space-y-2">
-        <label class="text-sm font-medium text-slate-700">Tipo de consulta*</label>
-        <select
-            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-            [(ngModel)]="solicitudForm.appointmentTypeId"
-            name="appointmentTypeId"
-            required
-        >
-            <option [ngValue]="null" disabled>Seleccionar tipo</option>
-            @for (tipo of tiposDeCita(); track tipo.id) {
-            <option [ngValue]="tipo.id">{{ tipo.name }}</option>
-            }
-        </select>
-        </div>
-
-        <!-- Fecha + Hora -->
-        <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-700">Fecha preferida*</label>
-            <select
-              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-              [ngModel]="solicitudForm.date"
-              (ngModelChange)="onDateChange($event)"
-              name="date"
-              required
-            >
-                <option value="" disabled>Seleccionar día</option>
-                @for (date of availableDates(); track date) {
-                <option [value]="date">{{ date | date:'dd/MM/yyyy' }}</option>
-            }
-            </select>
           </div>
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-700">Hora preferida*</label>
-            <select
-              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-              [(ngModel)]="solicitudForm.appointmentSlotId"
-              name="appointmentSlotId"
-              [disabled]="!solicitudForm.date"
-              required
-            >
-                <option [ngValue]="null" disabled>
-                    {{ solicitudForm.date ? 'Seleccionar hora' : 'Elige un día primero' }}
-                </option>
-                @for (slot of availableSlots(); track slot.id) {
-                    <option [ngValue]="slot.id">{{ slot.startTime }} - {{ slot.endTime }}</option>
-                }
-            </select>
-          </div>
-        </div>
-
-        <!-- Motivo -->
-        <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Motivo / Observaciones*</label>
-          <textarea
-            rows="3"
-            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-            placeholder="Describe brevemente el motivo de la consulta..."
-            [(ngModel)]="solicitudForm.reason"
-            name="reason"
-          ></textarea>
-        </div>
-
-        <!-- Info box -->
-        <div class="rounded-lg bg-blue-50 p-3 text-xs text-blue-900">
-          <div class="flex gap-2">
-            <lucide-icon [img]="Info" class="h-4 w-4 flex-shrink-0" [strokeWidth]="1.5"></lucide-icon>
-            <p>La disponibilidad de la cita será confirmada por nuestro equipo en las próximas 24 horas.</p>
-          </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex gap-3 pt-4">
           <button
             type="button"
-            class="flex-1 rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
             (click)="closeDialog()"
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            class="flex-1 rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
-          >
-            Solicitar cita
+            >
+            <lucide-icon [img]="X" class="h-4 w-4 text-slate-600" [strokeWidth]="1.5"></lucide-icon>
           </button>
         </div>
-      </form>
+        <form class="space-y-4 p-6" (ngSubmit)="handleSolicitar()">
+          <!-- Mascota -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Mascota*</label>
+            <select
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              [(ngModel)]="solicitudForm.petId"
+              name="petId"
+              required
+              >
+              <option [ngValue]="null" disabled>Seleccionar mascota</option>
+              @for (m of misMascotas(); track m.id) {
+                <option [ngValue]="m.id">{{ m.name }}</option>
+              }
+            </select>
+          </div>
+          <!-- Tipo de consulta (Selector estático) -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Tipo de consulta*</label>
+            <select
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              [(ngModel)]="solicitudForm.appointmentTypeId"
+              name="appointmentTypeId"
+              required
+              >
+              <option [ngValue]="null" disabled>Seleccionar tipo</option>
+              @for (tipo of tiposDeCita(); track tipo.id) {
+                <option [ngValue]="tipo.id">{{ tipo.name }}</option>
+              }
+            </select>
+          </div>
+          <!-- Fecha + Hora -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">Fecha preferida*</label>
+              <select
+                class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                [ngModel]="solicitudForm.date"
+                (ngModelChange)="onDateChange($event)"
+                name="date"
+                required
+                >
+                <option value="" disabled>Seleccionar día</option>
+                @for (date of availableDates(); track date) {
+                  <option [value]="date">{{ date | date:'dd/MM/yyyy' }}</option>
+                }
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">Hora preferida*</label>
+              <select
+                class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                [(ngModel)]="solicitudForm.appointmentSlotId"
+                name="appointmentSlotId"
+                [disabled]="!solicitudForm.date"
+                required
+                >
+                <option [ngValue]="null" disabled>
+                  {{ solicitudForm.date ? 'Seleccionar hora' : 'Elige un día primero' }}
+                </option>
+                @for (slot of availableSlots(); track slot.id) {
+                  <option [ngValue]="slot.id">{{ slot.startTime }} - {{ slot.endTime }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <!-- Motivo -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Motivo / Observaciones*</label>
+            <textarea
+              rows="3"
+              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+              placeholder="Describe brevemente el motivo de la consulta..."
+              [(ngModel)]="solicitudForm.reason"
+              name="reason"
+            ></textarea>
+          </div>
+          <!-- Info box -->
+          <div class="rounded-lg bg-blue-50 p-3 text-xs text-blue-900">
+            <div class="flex gap-2">
+              <lucide-icon [img]="Info" class="h-4 w-4 flex-shrink-0" [strokeWidth]="1.5"></lucide-icon>
+              <p>La disponibilidad de la cita será confirmada por nuestro equipo en las próximas 24 horas.</p>
+            </div>
+          </div>
+          <!-- Actions -->
+          <div class="flex gap-3 pt-4">
+            <button
+              type="button"
+              class="flex-1 rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              (click)="closeDialog()"
+              >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="flex-1 rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
+              >
+              Solicitar cita
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  }
 </div>
 

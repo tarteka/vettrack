@@ -8,7 +8,7 @@
           type="button"
           class="rounded p-2 hover:bg-gray-100 xl:hidden"
           (click)="sidebarOverlay = !sidebarOverlay"
-        >
+          >
           <lucide-icon
             [name]="sidebarOverlay ? 'x' : 'menu'"
             class="h-5 w-5"
@@ -19,7 +19,7 @@
         <div class="flex items-center gap-2">
           <div
             class="flex h-8 w-8 items-center justify-center rounded-full bg-[#009688] md:h-10 md:w-10"
-          >
+            >
             <img src="assets/icon.svg" alt="VetTrack Logo" class="h-8 w-8" />
 
           </div>
@@ -33,7 +33,7 @@
       <div class="hidden sm:flex items-center gap-3 md:gap-4">
         <div
           class="flex h-8 w-8 items-center justify-center rounded-full bg-[#009688] text-sm font-medium text-white md:h-10 md:w-10 md:text-base"
-        >
+          >
           {{ userInitial }}
         </div>
 
@@ -62,45 +62,50 @@
         'md:w-20': !sidebarExpanded && !sidebarOverlay,
         'xl:w-64': true
       }"
-    >
+      >
       <nav class="space-y-2 p-3 md:p-4">
-        <button
-          *ngFor="let item of menu"
-          type="button"
-          (click)="navigate(item); sidebarOverlay = false"
-          class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors md:px-4 md:py-3 md:text-base"
+        @for (item of menu; track item) {
+          <button
+            type="button"
+            (click)="navigate(item); sidebarOverlay = false"
+            class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors md:px-4 md:py-3 md:text-base"
           [ngClass]="{
             'bg-[#009688] text-white': currentPage === item.id,
             'text-[#212121] hover:bg-gray-100': currentPage !== item.id
           }"
-        >
-          <lucide-icon [name]="item.icon" class="h-5 w-5"></lucide-icon>
-
-          <span *ngIf="sidebarOverlay || sidebarExpanded || isDesktop" class="truncate">
-            {{ item.label }}
-          </span>
-        </button>
+            >
+            <lucide-icon [name]="item.icon" class="h-5 w-5"></lucide-icon>
+            @if (sidebarOverlay || sidebarExpanded || isDesktop) {
+              <span class="truncate">
+                {{ item.label }}
+              </span>
+            }
+          </button>
+        }
 
         <button
           type="button"
           (click)="logout()"
           class="mt-8 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition-colors hover:bg-red-50 md:px-4 md:py-3 md:text-base"
-        >
+          >
           <lucide-icon name="log-out" class="h-5 w-5"></lucide-icon>
 
-          <span *ngIf="sidebarOverlay || sidebarExpanded || isDesktop" class="truncate">
-            Cerrar sesión
-          </span>
+          @if (sidebarOverlay || sidebarExpanded || isDesktop) {
+            <span class="truncate">
+              Cerrar sesión
+            </span>
+          }
         </button>
       </nav>
     </aside>
 
     <!-- OVERLAY OSCURO -->
-    <div
-      *ngIf="sidebarOverlay"
-      class="fixed inset-0 z-30 bg-black/20 xl:hidden"
-      (click)="sidebarOverlay = false"
-    ></div>
+    @if (sidebarOverlay) {
+      <div
+        class="fixed inset-0 z-30 bg-black/20 xl:hidden"
+        (click)="sidebarOverlay = false"
+      ></div>
+    }
 
     <!-- MAIN -->
     <main class="flex-1 min-w-0 p-4 md:p-6 lg:p-8">

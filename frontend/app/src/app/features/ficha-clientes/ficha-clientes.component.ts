@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
@@ -33,7 +33,7 @@ interface Mascota {
 @Component({
   selector: 'app-ficha-cliente',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './ficha-clientes.component.html'
 })
 export class FichaClientesComponent implements OnInit {

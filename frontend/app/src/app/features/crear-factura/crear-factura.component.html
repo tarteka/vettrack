@@ -4,7 +4,7 @@
     type="button"
     (click)="onNavigate('facturas-vet')"
     class="mb-2 inline-flex items-center rounded-md px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-  >
+    >
     <lucide-icon [img]="ArrowLeft" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
     Volver a facturas
   </button>
@@ -34,206 +34,210 @@
               class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700"
               [value]="numeroFactura"
               disabled
-            />
-          </div>
+              />
+            </div>
 
-          <div class="space-y-2">
-            <label for="fecha" class="text-sm font-medium text-slate-700">Fecha de emisión *</label>
-            <input
-              id="fecha"
-              type="date"
-              class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-              [(ngModel)]="fechaEmision"
-              name="fechaEmision"
-              [disabled]="isEditMode"
-            />
-          </div>
+            <div class="space-y-2">
+              <label for="fecha" class="text-sm font-medium text-slate-700">Fecha de emisión *</label>
+              <input
+                id="fecha"
+                type="date"
+                class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                [(ngModel)]="fechaEmision"
+                name="fechaEmision"
+                [disabled]="isEditMode"
+                />
+              </div>
 
-        </div>
+            </div>
 
-        <!-- propietario -->
-        <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Propietario *</label>
+            <!-- propietario -->
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">Propietario *</label>
 
-          <app-search-owner
-            [owners]="propietarios"
-            [selectedOwner]="propietarioSeleccionado"
-            placeholder="Buscar propietario por nombre o DNI..."
-            (selectOwner)="onOwnerSelected($event)"
-            [disabled]="isEditMode"
-          ></app-search-owner>
-        </div>
+              <app-search-owner
+                [owners]="propietarios"
+                [selectedOwner]="propietarioSeleccionado"
+                placeholder="Buscar propietario por nombre o DNI..."
+                (selectOwner)="onOwnerSelected($event)"
+                [disabled]="isEditMode"
+              ></app-search-owner>
+            </div>
 
-        <!-- mascota -->
-        <div class="space-y-2">
-          <label for="mascota" class="text-sm font-medium text-slate-700">Mascota *</label>
+            <!-- mascota -->
+            <div class="space-y-2">
+              <label for="mascota" class="text-sm font-medium text-slate-700">Mascota *</label>
 
-          <select
-            id="mascota"
-            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30 disabled:bg-slate-50"
-            [(ngModel)]="mascota"
-            name="mascota"
-            [disabled]="!propietarioSeleccionado || isEditMode"
-          >
-            <option [ngValue]="null" disabled>
-              {{ propietarioSeleccionado ? 'Seleccionar mascota' : 'Primero selecciona un propietario' }}
-            </option>
+              <select
+                id="mascota"
+                class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30 disabled:bg-slate-50"
+                [(ngModel)]="mascota"
+                name="mascota"
+                [disabled]="!propietarioSeleccionado || isEditMode"
+                >
+                <option [ngValue]="null" disabled>
+                  {{ propietarioSeleccionado ? 'Seleccionar mascota' : 'Primero selecciona un propietario' }}
+                </option>
 
-            <option
-              *ngFor="let m of propietarioSeleccionado?.mascotas || []"
-              [ngValue]="m.id"
-            >
-              {{ m.nombre }} - {{ m.especie }}
-            </option>
-          </select>
-        </div>
-
-        <!-- servicios -->
-        <div class="space-y-4">
-          <label class="text-sm font-medium text-slate-700">Servicios *</label>
-
-          <div class="flex flex-col gap-2 sm:flex-row">
-            <select
-              class="w-full flex-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-              [(ngModel)]="servicioSeleccionado"
-              name="servicioSeleccionado"
-            >
-              <option [ngValue]="null" disabled>Seleccionar servicio</option>
-              <option *ngFor="let s of serviciosDisponibles" [ngValue]="s.id">
-                {{ s.nombre }} - {{ s.precio.toFixed(2) | number:'1.2-2' }} €
-              </option>
-            </select>
-
-            <button
-              type="button"
-              (click)="agregarServicio()"
-              class="inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
-            >
-              <lucide-icon [img]="Plus" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
-              Añadir
-            </button>
-          </div>
-
-          <!-- tabla servicios -->
-          <div *ngIf="servicios.length > 0" class="overflow-hidden rounded-lg border border-slate-200">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 text-slate-600">
-                <tr>
-                  <th class="px-4 py-3 font-medium">Servicio</th>
-                  <th class="w-24 px-4 py-3 font-medium">Cantidad</th>
-                  <th class="px-4 py-3 text-right font-medium">Precio</th>
-                  <th class="px-4 py-3 text-right font-medium">Total</th>
-                  <th class="w-12 px-2 py-3"></th>
-                </tr>
-              </thead>
-
-              <tbody class="divide-y divide-slate-200">
-                <tr *ngFor="let s of servicios">
-                  <td class="px-4 py-3 text-slate-800">{{ s.nombre }}</td>
-
-                  <td class="px-4 py-3">
-                    <input
-                      type="number"
-                      min="1"
-                      class="w-20 rounded-md border border-slate-200 bg-white px-2 py-1 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-                      [ngModel]="s.cantidad"
-                      (ngModelChange)="actualizarCantidad(s.id, $event)"
-                    />
-                  </td>
-
-                  <td class="px-4 py-3 text-right text-slate-700">{{ s.precio.toFixed(2) | number:'1.2-2' }} €</td>
-                  <td class="px-4 py-3 text-right text-slate-800">{{ (s.precio * s.cantidad).toFixed(2) | number:'1.2-2' }} €</td>
-
-                  <td class="px-2 py-3">
-                    <button
-                      type="button"
-                      class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
-                      (click)="eliminarServicio(s.id)"
+                @for (m of propietarioSeleccionado?.mascotas || []; track m) {
+                  <option
+                    [ngValue]="m.id"
                     >
-                      <lucide-icon [img]="Trash2" class="h-4 w-4 text-red-600" [strokeWidth]="1.5"></lucide-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- notas -->
-        <div class="space-y-2">
-          <label for="notas" class="text-sm font-medium text-slate-700">Notas adicionales</label>
-          <textarea
-            id="notas"
-            rows="3"
-            class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
-            placeholder="Observaciones o información adicional sobre la factura..."
-            [(ngModel)]="notas"
-            name="notas"
-          ></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- Resumen -->
-    <div class="space-y-4">
-      <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div class="border-b border-slate-200 p-6">
-          <h3 class="text-base font-semibold text-[#004D40]">Resumen</h3>
-        </div>
-
-        <div class="space-y-4 p-6">
-          <div class="space-y-3">
-            <div class="flex justify-between text-sm">
-              <span class="text-slate-500">Subtotal:</span>
-              <span class="text-slate-800">{{ subtotal.toFixed(2) | number:'1.2-2' }} €</span>
+                    {{ m.nombre }} - {{ m.especie }}
+                  </option>
+                }
+              </select>
             </div>
 
-            <div class="flex justify-between text-sm">
-              <span class="text-slate-500">IVA:</span>
-              <span class="text-slate-800">{{ iva.toFixed(2) | number:'1.2-2' }} €</span>
-            </div>
+            <!-- servicios -->
+            <div class="space-y-4">
+              <label class="text-sm font-medium text-slate-700">Servicios *</label>
 
-            <div class="border-t border-slate-200 pt-3">
-              <div class="flex justify-between">
-                <span class="font-medium text-[#004D40]">Total:</span>
-                <span class="font-semibold text-[#009688]">€{{ total.toFixed(2) }}</span>
+              <div class="flex flex-col gap-2 sm:flex-row">
+                <select
+                  class="w-full flex-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                  [(ngModel)]="servicioSeleccionado"
+                  name="servicioSeleccionado"
+                  >
+                  <option [ngValue]="null" disabled>Seleccionar servicio</option>
+                  @for (s of serviciosDisponibles; track s) {
+                    <option [ngValue]="s.id">
+                      {{ s.nombre }} - {{ s.precio.toFixed(2) | number:'1.2-2' }} €
+                    </option>
+                  }
+                </select>
+
+                <button
+                  type="button"
+                  (click)="agregarServicio()"
+                  class="inline-flex items-center justify-center rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
+                  >
+                  <lucide-icon [img]="Plus" class="mr-2 h-4 w-4" [strokeWidth]="1.5"></lucide-icon>
+                  Añadir
+                </button>
+              </div>
+
+              <!-- tabla servicios -->
+              @if (servicios.length > 0) {
+                <div class="overflow-hidden rounded-lg border border-slate-200">
+                  <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 text-slate-600">
+                      <tr>
+                        <th class="px-4 py-3 font-medium">Servicio</th>
+                        <th class="w-24 px-4 py-3 font-medium">Cantidad</th>
+                        <th class="px-4 py-3 text-right font-medium">Precio</th>
+                        <th class="px-4 py-3 text-right font-medium">Total</th>
+                        <th class="w-12 px-2 py-3"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                      @for (s of servicios; track s) {
+                        <tr>
+                          <td class="px-4 py-3 text-slate-800">{{ s.nombre }}</td>
+                          <td class="px-4 py-3">
+                            <input
+                              type="number"
+                              min="1"
+                              class="w-20 rounded-md border border-slate-200 bg-white px-2 py-1 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                              [ngModel]="s.cantidad"
+                              (ngModelChange)="actualizarCantidad(s.id, $event)"
+                              />
+                            </td>
+                            <td class="px-4 py-3 text-right text-slate-700">{{ s.precio.toFixed(2) | number:'1.2-2' }} €</td>
+                            <td class="px-4 py-3 text-right text-slate-800">{{ (s.precio * s.cantidad).toFixed(2) | number:'1.2-2' }} €</td>
+                            <td class="px-2 py-3">
+                              <button
+                                type="button"
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
+                                (click)="eliminarServicio(s.id)"
+                                >
+                                <lucide-icon [img]="Trash2" class="h-4 w-4 text-red-600" [strokeWidth]="1.5"></lucide-icon>
+                              </button>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              </div>
+
+              <!-- notas -->
+              <div class="space-y-2">
+                <label for="notas" class="text-sm font-medium text-slate-700">Notas adicionales</label>
+                <textarea
+                  id="notas"
+                  rows="3"
+                  class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-[#009688] focus:outline-none focus:ring-1 focus:ring-[#009688]/30"
+                  placeholder="Observaciones o información adicional sobre la factura..."
+                  [(ngModel)]="notas"
+                  name="notas"
+                ></textarea>
               </div>
             </div>
           </div>
 
-          <button
-            type="button"
-            (click)="guardarFactura()"
-            class="w-full rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
-          >
-            {{ isEditMode ? 'Guardar cambios' : 'Guardar factura' }}
-          </button>
+          <!-- Resumen -->
+          <div class="space-y-4">
+            <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 p-6">
+                <h3 class="text-base font-semibold text-[#004D40]">Resumen</h3>
+              </div>
+
+              <div class="space-y-4 p-6">
+                <div class="space-y-3">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Subtotal:</span>
+                    <span class="text-slate-800">{{ subtotal.toFixed(2) | number:'1.2-2' }} €</span>
+                  </div>
+
+                  <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">IVA:</span>
+                    <span class="text-slate-800">{{ iva.toFixed(2) | number:'1.2-2' }} €</span>
+                  </div>
+
+                  <div class="border-t border-slate-200 pt-3">
+                    <div class="flex justify-between">
+                      <span class="font-medium text-[#004D40]">Total:</span>
+                      <span class="font-semibold text-[#009688]">€{{ total.toFixed(2) }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  (click)="guardarFactura()"
+                  class="w-full rounded-md bg-[#009688] px-4 py-2 text-sm font-medium text-white hover:bg-[#26A69A]"
+                  >
+                  {{ isEditMode ? 'Guardar cambios' : 'Guardar factura' }}
+                </button>
+              </div>
+            </div>
+
+            <!-- info cliente -->
+            @if (propietarioSeleccionado) {
+              <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+                <div class="border-b border-slate-200 p-6">
+                  <h3 class="text-sm font-semibold text-[#004D40]">Información del cliente</h3>
+                </div>
+                <div class="space-y-2 p-6">
+                  <div>
+                    <p class="text-xs text-slate-500">Nombre</p>
+                    <p class="text-sm text-slate-800">{{ propietarioSeleccionado.nombre }}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-500">DNI</p>
+                    <p class="text-sm text-slate-800">{{ propietarioSeleccionado.dni }}</p>
+                  </div>
+                  @if (propietarioSeleccionado.mascotas) {
+                    <div>
+                      <p class="text-xs text-slate-500">Mascotas</p>
+                      <p class="text-sm text-slate-800">{{ propietarioSeleccionado.mascotas.length }}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
         </div>
       </div>
-
-      <!-- info cliente -->
-      <div *ngIf="propietarioSeleccionado" class="rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div class="border-b border-slate-200 p-6">
-          <h3 class="text-sm font-semibold text-[#004D40]">Información del cliente</h3>
-        </div>
-
-        <div class="space-y-2 p-6">
-          <div>
-            <p class="text-xs text-slate-500">Nombre</p>
-            <p class="text-sm text-slate-800">{{ propietarioSeleccionado.nombre }}</p>
-          </div>
-
-          <div>
-            <p class="text-xs text-slate-500">DNI</p>
-            <p class="text-sm text-slate-800">{{ propietarioSeleccionado.dni }}</p>
-          </div>
-
-          <div *ngIf="propietarioSeleccionado?.mascotas">
-            <p class="text-xs text-slate-500">Mascotas</p>
-            <p class="text-sm text-slate-800">{{ propietarioSeleccionado.mascotas?.length }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

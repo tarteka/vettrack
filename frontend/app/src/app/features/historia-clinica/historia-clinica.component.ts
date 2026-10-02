@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, ArrowLeft, Save, Info, Plus, X } from 'lucide-angular';
@@ -13,10 +13,9 @@ import { treatment } from '../../core/models/treatment.model';
   selector: 'app-historia-clinica',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     LucideAngularModule
-  ],
+],
   providers: [
     {
       provide: LUCIDE_ICONS,

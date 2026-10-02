@@ -14,34 +14,37 @@
       (focus)="onFocus()"
       autocomplete="off"
       [disabled]="disabled"
-    />
-  </div>
-
-  <!-- Resultados -->
-  <div
-    *ngIf="showResults && filteredOwners.length > 0"
-    class="absolute z-50 w-full mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg"
-  >
-    <div class="p-2">
-      <button
-        *ngFor="let owner of filteredOwners"
-        type="button"
-        (click)="handleSelect(owner)"
-        class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-      >
-        <p class="text-[#212121] font-medium">{{ owner.nombre }}</p>
-        <p class="text-sm text-gray-600">{{ owner.dni }}</p>
-      </button>
+      />
     </div>
-  </div>
 
-  <!-- Sin resultados -->
-  <div
-    *ngIf="showResults && searchTerm.length > 0 && filteredOwners.length === 0"
-    class="absolute z-50 w-full mt-1 rounded-lg border border-gray-200 bg-white shadow-lg"
-  >
-    <div class="p-4 text-center text-gray-500 text-sm">
-      No se encontraron propietarios
-    </div>
+    <!-- Resultados -->
+    @if (showResults && filteredOwners.length > 0) {
+      <div
+        class="absolute z-50 w-full mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg"
+        >
+        <div class="p-2">
+          @for (owner of filteredOwners; track owner) {
+            <button
+              type="button"
+              (click)="handleSelect(owner)"
+              class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+              <p class="text-[#212121] font-medium">{{ owner.nombre }}</p>
+              <p class="text-sm text-gray-600">{{ owner.dni }}</p>
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Sin resultados -->
+    @if (showResults && searchTerm.length > 0 && filteredOwners.length === 0) {
+      <div
+        class="absolute z-50 w-full mt-1 rounded-lg border border-gray-200 bg-white shadow-lg"
+        >
+        <div class="p-4 text-center text-gray-500 text-sm">
+          No se encontraron propietarios
+        </div>
+      </div>
+    }
   </div>
-</div>

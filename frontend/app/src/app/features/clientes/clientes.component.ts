@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../core/services/client.service';
 import { LucideAngularModule } from 'lucide-angular';
@@ -24,7 +24,7 @@ export interface Cliente {
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, LucideAngularModule],
+  imports: [RouterModule, FormsModule, LucideAngularModule],
   templateUrl: './clientes.component.html'
 })
 export class ClientesComponent implements OnInit {

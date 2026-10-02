@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule } from 'lucide-angular';
 import {
   ReactiveFormsModule,
@@ -14,7 +14,7 @@ import {AlertService} from '../../../core/services/alert.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [ReactiveFormsModule, LucideAngularModule],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {

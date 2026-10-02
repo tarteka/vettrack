@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   ElementRef,
@@ -23,7 +23,7 @@ export interface Owner {
 @Component({
   selector: 'app-search-owner',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [FormsModule, LucideAngularModule],
   templateUrl: './search-owner.component.html',
 })
 export class SearchOwnerComponent implements OnChanges {
