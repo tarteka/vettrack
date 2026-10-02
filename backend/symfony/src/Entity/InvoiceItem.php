@@ -27,13 +27,13 @@ class InvoiceItem
     private int $quantity = 1;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $subTotal = 0.0;
+    private string $subTotal = '0.0';
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $taxAmount = 0.0;
+    private string $taxAmount = '0.0';
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $totalAmount = 0.0;
+    private string $totalAmount = '0.0';
 
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime')]

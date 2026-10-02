@@ -28,10 +28,10 @@ class Service
     private ServiceCategory $category;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: false)]
-    private float $unitPrice;
+    private string $unitPrice;
 
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: false, options: ['default' => '21.00'])]
-    private float $taxRate = 21.00;
+    private string $taxRate = '21.00';
 
     #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $isActive = true;

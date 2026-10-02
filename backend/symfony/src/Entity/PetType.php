@@ -12,12 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 
 #[ORM\Entity(repositoryClass: PetTypeRepository::class)]
-#[ORM\Table(
-    name: "pet_types",
-    uniqueConstraints:[
-        new ORM\UniqueConstraint(name: "unique_pet_type_name", columns: ["name"])
-    ]
-)]
+#[ORM\Table(name: "pet_types")]
+#[ORM\UniqueConstraint(name: "unique_pet_type_name", columns: ["name"])]
 #[UniqueEntity(
     fields: ["name"],
     message: "El tipo de mascota '{{ value }}' ya existe en el catálogo."

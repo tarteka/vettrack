@@ -14,15 +14,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
-#[ORM\Table(
-    name: 'appointments',
-    uniqueConstraints: [
-        new ORM\UniqueConstraint(
-            name: 'unique_appointment_slot',
-            columns: ['appointment_slot_id']
-        )
-    ]
-)]
+#[ORM\Table(name: 'appointments')]
+#[ORM\UniqueConstraint(name: 'unique_appointment_slot', columns: ['appointment_slot_id'])]
 #[ORM\Index(name: 'idx_pet_appointments', columns: ['pet_id'])]
 #[ORM\Index(name: 'idx_vet_appointments', columns: ['veterinarian_id'])]
 #[ORM\Index(name: 'idx_status', columns: ['status'])]

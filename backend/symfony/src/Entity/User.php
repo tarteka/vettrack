@@ -15,13 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User Entity - Representa usuarios (clientes, veterinarios, administradores)
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(
-    name: "users",
-    uniqueConstraints: [
-        new ORM\UniqueConstraint(name: "unique_email", columns: ["email"]),
-        new ORM\UniqueConstraint(name: "unique_dni", columns: ["dni"])
-    ]
-)]
+#[ORM\Table(name: "users")]
+#[ORM\UniqueConstraint(name: "unique_email", columns: ["email"])]
+#[ORM\UniqueConstraint(name: "unique_dni", columns: ["dni"])]
 #[ORM\Index(name: "idx_email", columns: ["email"])]
 #[ORM\Index(name: "idx_dni", columns: ["dni"])]
 #[ORM\Index(name: "idx_roles", columns: ["roles"])]

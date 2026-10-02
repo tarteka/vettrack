@@ -61,13 +61,13 @@ class Invoice
     private ?\DateTimeInterface $dueDate = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $subtotal = 0;
+    private string $subtotal = '0';
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $taxAmount = 0;
+    private string $taxAmount = '0';
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $totalAmount = 0;
+    private string $totalAmount = '0';
 
     #[ORM\Column(type: 'string', length: 10, enumType: InvoiceStatus::class, options: ['default' => InvoiceStatus::Pending])]
     private InvoiceStatus $status = InvoiceStatus::Pending;
