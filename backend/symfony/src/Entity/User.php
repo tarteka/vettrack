@@ -20,7 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: "unique_dni", columns: ["dni"])]
 #[ORM\Index(name: "idx_email", columns: ["email"])]
 #[ORM\Index(name: "idx_dni", columns: ["dni"])]
-#[ORM\Index(name: "idx_roles", columns: ["roles"])]
 #[ORM\Index(name: "idx_active", columns: ["is_active", "is_verified"])]
 #[UniqueEntity(
     fields: ["email"],
