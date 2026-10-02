@@ -4,4 +4,4 @@ framework:
         headers:
             X-Mailer: 'Symfony Mailer'
         envelope:
-            sender: 'vettrack@mg.libretux.com'
+            sender: '%env(MAIL_FROM_EMAIL)%'
