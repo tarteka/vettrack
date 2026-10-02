@@ -27,11 +27,18 @@ services:
     build:
       context: ./
       dockerfile: ./docker/nginx/Dockerfile
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     ports:
       - "127.0.0.1:4200:80"
     networks:
       - guno-network
+      - deploy_default
 
 networks:
   guno-network:
+    external: true
+  deploy_default:
     external: true
