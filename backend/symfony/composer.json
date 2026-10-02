@@ -29,6 +29,7 @@
         "symfony/lock": "6.4.*",
         "symfony/mailer": "6.4.*",
         "symfony/mailgun-mailer": "6.4.*",
+        "symfony/monolog-bundle": "^3.0|^4.0",
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
         "symfony/rate-limiter": "6.4.*",
@@ -36,6 +37,7 @@
         "symfony/security-bundle": "6.4.*",
         "symfony/security-core": "6.4.*",
         "symfony/serializer": "6.4.*",
+        "symfony/twig-bundle": "6.4.*",
         "symfony/validator": "6.4.*",
         "symfony/yaml": "6.4.*"
     },
@@ -94,7 +96,6 @@
         "doctrine/doctrine-fixtures-bundle": "^4.3",
         "symfony/debug-bundle": "6.4.*",
         "symfony/maker-bundle": "^1.64",
-        "symfony/monolog-bundle": "^3.0|^4.0",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*",
         "zenstruck/foundry": "^2.8"
