@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   LucideAngularModule,
   ArrowLeft,
@@ -49,6 +49,7 @@ interface TratamientoItem {
     CommonModule,
     LucideAngularModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-mascota.component.html'
 })
 export class FichaMascotaComponent implements OnInit {

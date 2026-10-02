@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
@@ -27,6 +27,7 @@ interface Notificacion {
   selector: 'app-dashboard-vet',
   templateUrl: './dashboard-vet.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, LucideAngularModule]
 })
 export class DashboardVetComponent implements OnInit {

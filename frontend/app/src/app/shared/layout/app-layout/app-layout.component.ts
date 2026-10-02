@@ -3,7 +3,8 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  HostListener
+  HostListener,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
@@ -30,6 +31,7 @@ type Viewport = 'mobile' | 'tablet' | 'desktop';
   selector: 'app-app-layout',
   standalone: true,
   imports: [CommonModule, RouterModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app-layout.component.html'
 })
 export class AppLayoutComponent

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, FileText, Download, ArrowLeft } from 'lucide-angular';
 import { InvoiceApi, InvoiceLineItem, InvoiceService } from '../../core/services/invoice.service';
 import { Router } from '@angular/router';
@@ -33,6 +33,7 @@ type Factura = {
       useValue: new LucideIconProvider({ FileText, Download, ArrowLeft })
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mis-facturas.component.html',
 })
 export class MisFacturasComponent implements OnInit {

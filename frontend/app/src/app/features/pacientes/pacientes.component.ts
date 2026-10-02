@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+﻿import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -65,6 +65,7 @@ type activeFilter  = 'all' | 'active' | 'inactive';
   selector: 'app-pacientes',
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pacientes.component.html'
 })
 export class PacientesComponent implements OnInit {

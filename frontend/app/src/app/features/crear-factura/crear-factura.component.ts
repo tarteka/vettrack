@@ -1,5 +1,5 @@
 ﻿import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, Plus, Trash2, ArrowLeft } from 'lucide-angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,6 +35,7 @@ interface ServicioFactura {
       useValue: new LucideIconProvider({ Plus, Trash2, ArrowLeft })
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './crear-factura.component.html'
 })
 export class CrearFacturaComponent implements OnInit {

@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+﻿import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,6 +34,7 @@ interface Mascota {
   selector: 'app-ficha-cliente',
   standalone: true,
   imports: [RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-clientes.component.html'
 })
 export class FichaClientesComponent implements OnInit {

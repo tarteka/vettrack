@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { InactivityService } from './core/services/inactive.service';
@@ -9,6 +9,7 @@ import { AlertService } from './core/services/alert.service';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {

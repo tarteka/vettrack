@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 
 import { RouterModule } from '@angular/router';
@@ -31,6 +31,7 @@ interface PasswordData {
   selector: 'app-profile',
   standalone: true,
   imports: [RouterModule, FormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html'
 })
 

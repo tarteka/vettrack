@@ -1,5 +1,5 @@
 ﻿import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
@@ -41,6 +41,7 @@ interface Factura {
   selector: 'app-facturas',
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './facturas.component.html',
 })
 export class FacturasComponent implements OnInit {

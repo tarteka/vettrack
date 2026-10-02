@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+﻿import { Component, EventEmitter, Input, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '../../../core/services/auth.service';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard-client',
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './dashboard-client.component.html'
 })
 export class DashboardClientComponent implements OnInit {

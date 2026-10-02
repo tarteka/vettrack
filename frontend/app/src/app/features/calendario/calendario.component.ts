@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, Output, OnInit, inject, signal, ViewChild, HostListener} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit, inject, signal, ViewChild, HostListener, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,7 @@ type ViewPort = 'mobile' | 'tablet' | 'desktop';
   selector: 'app-calendario',
   standalone: true,
   imports: [CommonModule, FormsModule, FullCalendarModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './calendario.component.html',
 })
 

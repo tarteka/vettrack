@@ -8,6 +8,7 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
@@ -24,6 +25,7 @@ export interface Owner {
   selector: 'app-search-owner',
   standalone: true,
   imports: [FormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './search-owner.component.html',
 })
 export class SearchOwnerComponent implements OnChanges {

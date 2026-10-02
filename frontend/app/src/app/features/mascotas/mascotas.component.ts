@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, Plus, ArrowLeft, Dog, Cat } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { Mascota } from '../../core/models/pet-user.model';
@@ -21,6 +21,7 @@ import { PetUserService } from '../../core/services/pet-user.service';
       useValue: new LucideIconProvider({ Plus, ArrowLeft, Dog, Cat })
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mascotas.component.html',
 })
 export class MascotasComponent implements OnInit{

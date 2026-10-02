@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, OnInit, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -49,6 +49,7 @@ type TabKey = 'proximas' | 'pasadas';
       })
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './mis-citas.component.html',
 })
 export class MisCitasComponent implements OnInit {

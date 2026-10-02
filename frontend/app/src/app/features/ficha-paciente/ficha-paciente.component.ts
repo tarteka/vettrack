@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Input, OnInit, Output,inject} from '@angular/core';
+﻿import { Component, EventEmitter, Input, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -93,6 +93,7 @@ interface MascotaForm {
   selector: 'app-ficha-paciente',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ficha-paciente.component.html'
 })
 export class FichaPacienteComponent implements OnInit {

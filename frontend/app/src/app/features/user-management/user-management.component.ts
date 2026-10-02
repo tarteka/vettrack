@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LucideAngularModule} from 'lucide-angular';
@@ -11,6 +11,7 @@ import {AuthService} from '../../core/services/auth.service';
   selector: 'app-user-management',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './user-management.component.html'
 })
 export class UserManagementComponent implements OnInit {

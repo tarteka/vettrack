@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -25,6 +25,7 @@ export interface Cliente {
   selector: 'app-clientes',
   standalone: true,
   imports: [RouterModule, FormsModule, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './clientes.component.html'
 })
 export class ClientesComponent implements OnInit {

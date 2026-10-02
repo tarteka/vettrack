@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, LucideIconProvider, LUCIDE_ICONS, ArrowLeft, Save, Info, Plus, X } from 'lucide-angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +23,7 @@ import { treatment } from '../../core/models/treatment.model';
       useValue: new LucideIconProvider({ ArrowLeft, Save, Info, Plus, X })
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './historia-clinica.component.html'
 })
 export class HistoriaClinicaComponent {

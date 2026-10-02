@@ -1,6 +1,6 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { LucideAngularModule } from 'lucide-angular';
 import { LUCIDE_ICONS } from './shared/icons/lucide-icons';
 
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(
+    provideHttpClient(withXhr(), 
       withInterceptors([authInterceptor])
     ),
     importProvidersFrom(
