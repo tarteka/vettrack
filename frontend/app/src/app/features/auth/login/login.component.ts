@@ -81,6 +81,10 @@ export class LoginComponent {
     });
   }
 
+  fillDemoCredentials(username: string, password: string): void {
+    this.loginForm.patchValue({ username, password });
+  }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }

@@ -89,6 +89,33 @@
           Iniciar sesión
         </button>
       </form>
+
+      <!-- Credenciales de demo -->
+      <div class="mt-5 rounded-lg border border-teal-100 bg-teal-50 p-4">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-teal-700">
+          Acceso de prueba
+        </p>
+
+        <div class="flex flex-col gap-2">
+          <button
+            type="button"
+            class="flex items-center justify-between rounded-md border border-teal-200 bg-white px-3 py-2 text-left text-xs hover:border-teal-400 hover:bg-teal-50"
+            (click)="fillDemoCredentials('vet@vettrack.com', 'demo1234')"
+          >
+            <span class="font-medium text-gray-800">Veterinario</span>
+            <span class="text-gray-500">vet@vettrack.com · demo1234</span>
+          </button>
+
+          <button
+            type="button"
+            class="flex items-center justify-between rounded-md border border-teal-200 bg-white px-3 py-2 text-left text-xs hover:border-teal-400 hover:bg-teal-50"
+            (click)="fillDemoCredentials('cliente@vettrack.com', 'demo1234')"
+          >
+            <span class="font-medium text-gray-800">Cliente</span>
+            <span class="text-gray-500">cliente@vettrack.com · demo1234</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
