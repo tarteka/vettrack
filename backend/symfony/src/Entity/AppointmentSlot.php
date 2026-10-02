@@ -16,13 +16,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: AppointmentSlotRepository::class)]
 #[ORM\Table(
     name: 'appointment_slots',
-    indexes: [
-        new ORM\Index(name: 'idx_available_slots', columns: ['slot_date', 'is_available']),
-    ],
     uniqueConstraints: [
         new ORM\UniqueConstraint(name: 'unique_slot', columns: ['slot_date', 'slot_time'])
     ]
 )]
+#[ORM\Index(name: 'idx_available_slots', columns: ['slot_date', 'is_available'])]
 #[UniqueEntity(fields: ['veterinarian', 'slotDate', 'slotTime'])]
 class AppointmentSlot
 {

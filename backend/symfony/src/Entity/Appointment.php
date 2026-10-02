@@ -16,12 +16,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
 #[ORM\Table(
     name: 'appointments',
-    indexes: [
-        new ORM\Index(name: 'idx_pet_appointments', columns: ['pet_id']),
-        new ORM\Index(name: 'idx_vet_appointments', columns: ['veterinarian_id']),
-        new ORM\Index(name: 'idx_status', columns: ['status']),
-        new ORM\Index(name: 'idx_created_by', columns: ['created_by']),
-    ],
     uniqueConstraints: [
         new ORM\UniqueConstraint(
             name: 'unique_appointment_slot',
@@ -29,6 +23,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
         )
     ]
 )]
+#[ORM\Index(name: 'idx_pet_appointments', columns: ['pet_id'])]
+#[ORM\Index(name: 'idx_vet_appointments', columns: ['veterinarian_id'])]
+#[ORM\Index(name: 'idx_status', columns: ['status'])]
+#[ORM\Index(name: 'idx_created_by', columns: ['created_by'])]
 class Appointment
 {
     #[ORM\Id]

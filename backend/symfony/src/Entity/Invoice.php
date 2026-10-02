@@ -15,15 +15,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[ORM\Table(
-    name: 'invoices',
-    indexes: [
-        new ORM\Index(name: 'idx_user_invoices', columns: ['user_id']),
-        new ORM\Index(name: 'idx_pet_invoices', columns: ['pet_id']),
-        new ORM\Index(name: 'idx_invoice_number', columns: ['invoice_number']),
-        new ORM\Index(name: 'idx_status', columns: ['status']),
-    ]
-)]
+#[ORM\Table(name: 'invoices')]
+#[ORM\Index(name: 'idx_user_invoices', columns: ['user_id'])]
+#[ORM\Index(name: 'idx_pet_invoices', columns: ['pet_id'])]
+#[ORM\Index(name: 'idx_invoice_number', columns: ['invoice_number'])]
+#[ORM\Index(name: 'idx_status', columns: ['status'])]
 #[UniqueEntity(
     fields: ['invoice_number'],
     message: 'Este número de factura ya existe.',

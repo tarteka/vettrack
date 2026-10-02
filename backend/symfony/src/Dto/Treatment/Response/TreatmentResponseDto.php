@@ -12,10 +12,10 @@ class TreatmentResponseDto
         public string $frequency,
         public string $instructions,
         public string $startDate,
-        public ?string $endDate = null,
         public string $veterinarianFullName,
         public string $duration,
         public string $status,
-        public string $suspendedReason
+        public string $suspendedReason,
+        public ?string $endDate = null,
     ) {}
 }

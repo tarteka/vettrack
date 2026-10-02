@@ -7,13 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
-#[ORM\Table(
-    name: 'services',
-    indexes: [
-        new ORM\Index(name: 'idx_category', columns: ['category_id']),
-        new ORM\Index(name: 'idx_active', columns: ['is_active']),
-    ]
-)]
+#[ORM\Table(name: 'services')]
+#[ORM\Index(name: 'idx_category', columns: ['category_id'])]
+#[ORM\Index(name: 'idx_active', columns: ['is_active'])]
 class Service
 {
     #[ORM\Id]

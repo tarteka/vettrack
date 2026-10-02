@@ -16,14 +16,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 #[ORM\Table(
     name: "pets",
-    indexes: [
-        new ORM\Index(name: "idx_user_pets" , columns: ["user_id"]),
-        new ORM\Index(name: "idx_active" , columns: ["is_active"]),
-        ],
     uniqueConstraints: [
         new ORM\UniqueConstraint(name: "unique_microchip", columns: ["microchip"])
         ]
 )]
+#[ORM\Index(name: "idx_user_pets" , columns: ["user_id"])]
+#[ORM\Index(name: "idx_active" , columns: ["is_active"])]
 #[UniqueEntity(
     fields: ["microchip"],
     message: "El microchip ya está en uso.",

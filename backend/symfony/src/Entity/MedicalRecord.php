@@ -12,14 +12,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 
 #[ORM\Entity(repositoryClass: MedicalRecordRepository::class)]
-#[ORM\Table(
-    name: 'medical_records',
-    indexes: [
-        new ORM\Index(name: 'idx_pet_records', columns: ['pet_id']),
-        new ORM\Index(name: 'idx_veterinarian_records', columns: ['veterinarian_id']),
-        new ORM\Index(name: 'idx_record_date', columns: ['record_date']),
-    ]
-)]
+#[ORM\Table(name: 'medical_records')]
+#[ORM\Index(name: 'idx_pet_records', columns: ['pet_id'])]
+#[ORM\Index(name: 'idx_veterinarian_records', columns: ['veterinarian_id'])]
+#[ORM\Index(name: 'idx_record_date', columns: ['record_date'])]
 class MedicalRecord
 {
     #[ORM\Id]

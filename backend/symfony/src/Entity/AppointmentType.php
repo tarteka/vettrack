@@ -11,12 +11,8 @@ use App\Repository\AppointmentTypeRepository;
  */
 
 #[ORM\Entity(repositoryClass: AppointmentTypeRepository::class)]
-#[ORM\Table(
-    name: 'appointment_types',
-    indexes: [
-        new ORM\Index(name: 'idx_appointment_type', columns: ['appointment_type_id']),
-    ]
-)]
+#[ORM\Table(name: 'appointment_types')]
+#[ORM\Index(name: 'idx_appointment_type', columns: ['appointment_type_id'])]
 class AppointmentType
 {
     #[ORM\Id]

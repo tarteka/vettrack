@@ -6,12 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity]
-#[ORM\Table(
-    name: 'invoice_items',
-    indexes: [
-        new ORM\Index(name: 'idx_invoice_items', columns: ['invoice_id']),
-    ]
-)]
+#[ORM\Table(name: 'invoice_items')]
+#[ORM\Index(name: 'idx_invoice_items', columns: ['invoice_id'])]
 class InvoiceItem
 {
     #[ORM\Id]
