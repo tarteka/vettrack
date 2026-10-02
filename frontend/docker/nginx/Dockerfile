@@ -1,5 +1,5 @@
 # 1 Build Angular
-FROM node:18 AS build
+FROM node:26 AS build
 
 WORKDIR /app
 COPY app/ .
